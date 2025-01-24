@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { ExternalLink } from "lucide-react";
 
 export interface SidebarNavProps {
     links: {
@@ -14,6 +15,15 @@ export interface SidebarNavProps {
       link_category: "Frameworks" | "Libraries" | "Databases" | "Authentication" | "Other";
       url_slug: string;
     }[];
+}
+export interface CategoryProps {
+    category: string;
+    links: {
+        id: number;
+        name: string;
+        url: string;
+        url_slug: string;
+    }[]
 }
 
 export const groupLinksByCategory = (links: SidebarNavProps['links']) => {
@@ -38,36 +48,51 @@ export const groupLinksByCategory = (links: SidebarNavProps['links']) => {
     }, {} as Record<string, SidebarNavProps['links']>);
 };
 
+export function SidebarNavCategory({category, links}: CategoryProps) {
+    const pathname = usePathname();
+    return(
+        <div>
+            <p className="text-sm text-[hsl(var(--brand))] mb-2">{category}</p>
+            <ul className="border-l border-border px-2">
+                {links.map((link) => (
+                    <li className={clsx(
+                        "flex flex-row gap-2 items-center group",
+                    )}
+                    key={link.id}
+                    >
+                        <Link className={clsx(
+                            "text-sm px-3 py-2 rounded-md grow transition-colors",
+                            {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
+                            {"text-link-foreground bg-link": pathname.includes(link.url_slug)}
+                        )}
+                        href={`/documentation/${link.url_slug}`}
+                        >
+                            <p>{link.name}</p>
+                        </Link>
+                        
+                        <a target="_blank" className={clsx(
+                            "stroke-muted-foreground hover:stroke-primary transition-colors",
+                            {"invisible group-hover:visible": !pathname.includes(link.url_slug)},
+                            {"visible": pathname.includes(link.url_slug)}
+                        )} href={link.url}
+                        >
+                            <ExternalLink size={18} className="stroke-inherit"/>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 export default function SidebarNav({links}: SidebarNavProps) {
     const pathname = usePathname();
     const groupedLinks = groupLinksByCategory(links);
 
     return(
-        <nav className="overflow-y-auto flex flex-col gap-3 h-full">
+        <nav className="overflow-y-auto flex flex-col gap-3 h-full py-10">
             {Object.entries(groupedLinks).map(([category, links], index) => (
-                <div key={index}>
-                    <p className="text-sm text-[hsl(var(--brand))] mb-2">{category}</p>
-                    <ul>
-                        {links.map((link) => (
-                            <li className={clsx(
-                                "px-3 py-2 rounded-md",
-                                {"bg-link": pathname.includes(link.url_slug)}
-                            )}
-                            key={link.id}
-                            >
-                                <Link className={clsx(
-                                    "text-sm",
-                                    {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
-                                    {"text-link-foreground": pathname.includes(link.url_slug)}
-                                )}
-                                href={`/documentation/${link.url_slug}`}
-                                >
-                                    <p>{link.name}</p>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <SidebarNavCategory key={index} category={category} links={links}/>
             ))}
         </nav>
     );

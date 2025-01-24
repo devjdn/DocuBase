@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ThemeSwitcher } from "../theme-switcher";
 import HeaderNav from "./header-nav";
 import { FileText } from "lucide-react";
+import GithubStar from "../buttons/github-star";
 
 export default function HeaderWrapper() {
     return(
@@ -24,6 +25,7 @@ export default function HeaderWrapper() {
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4">
                         <HeaderAuth />
+                        <GithubStar/>
                     </div>
                 </div>
             </nav>
