@@ -23,7 +23,7 @@ export default function HeaderWrapper() {
 
                         <HeaderNav/>
                     </div>
-                    <div className="flex flex-row items-center justify-center gap-4">
+                    <div className="flex flex-row items-center justify-center gap-2">
                         <HeaderAuth />
                         <GithubStar/>
                     </div>

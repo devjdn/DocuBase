@@ -11,7 +11,7 @@ export default async function SidebarWrapper(){
       }
 
     return(
-        <div className="hidden md:flex md:flex-col h-[calc(100vh-60px)] w-64 border-r border-[hsl(var(--border))] scroll-py-10 px-8">
+        <div className="hidden md:flex md:flex-col h-[calc(100vh-60px)] w-64 border-r border-[hsl(var(--border))] py-10 px-6">
             <SidebarNav links={links}/>
         </div>
     );

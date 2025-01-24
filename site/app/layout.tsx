@@ -1,5 +1,5 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Geist, Inter } from "next/font/google";
+import { Inter, DM_Sans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderWrapper from "@/components/header/header-wrapper";
@@ -14,11 +14,13 @@ export const metadata = {
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
-const geistSans = Geist({
+
+const inter = Inter({
   display: "swap",
   subsets: ["latin"],
 });
-const inter = Inter({
+
+const dm = DM_Sans({
   display: "swap",
   subsets: ["latin"],
 })
@@ -29,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+    <html lang="en" className={dm.className} suppressHydrationWarning>
       <body className="bg-background text-foreground tracking-normal">
         <ThemeProvider
           attribute="class"

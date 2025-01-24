@@ -1,3 +1,4 @@
+import DocHeader from "@/components/docs-pages/doc-header";
 import Timestamp from "@/components/docs-pages/timestamp";
 import Heading1 from "@/components/typography/headings";
 import { createClient } from "@/utils/supabase/server";
@@ -18,8 +19,8 @@ export default async function LinkPage({params}: {params: Promise<{url_slug: str
     }
 
     return(
-        <main className="max-w-5xl p-10">
-            <Heading1 text={link.name}/>
+        <main className="grow max-w-5xl p-10">
+            <DocHeader category={link.link_category} name={link.name}/>
             <a className="text-link-foreground" href={link.url} target="_blank">{link.url}</a>
             <p className="text-muted-foreground">{link.description}</p>
             <Timestamp timestamp={link.created_at} />

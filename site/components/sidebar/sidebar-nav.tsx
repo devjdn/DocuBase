@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { ExternalLink } from "lucide-react";
+import LinkFlag from "./sidebar-buttons/link-flag";
 
 export interface SidebarNavProps {
     links: {
@@ -52,7 +53,7 @@ export function SidebarNavCategory({category, links}: CategoryProps) {
     const pathname = usePathname();
     return(
         <div>
-            <p className="text-sm text-[hsl(var(--brand))] mb-2">{category}</p>
+            <p className="text-base text-[hsl(var(--brand))] mb-2">{category}</p>
             <ul className="border-l border-border px-2">
                 {links.map((link) => (
                     <li className={clsx(
@@ -61,7 +62,7 @@ export function SidebarNavCategory({category, links}: CategoryProps) {
                     key={link.id}
                     >
                         <Link className={clsx(
-                            "text-sm px-3 py-2 rounded-md grow transition-colors",
+                            "text-sm px-3 py-2 rounded-md grow w-full transition-colors",
                             {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
                             {"text-link-foreground bg-link": pathname.includes(link.url_slug)}
                         )}
@@ -78,6 +79,12 @@ export function SidebarNavCategory({category, links}: CategoryProps) {
                         >
                             <ExternalLink size={18} className="stroke-inherit"/>
                         </a>
+
+                        <LinkFlag className={clsx(
+                            {"invisible group-hover:visible": !pathname.includes(link.url_slug)},
+                            {"visible": pathname.includes(link.url_slug)}
+                        )}
+                        />
                     </li>
                 ))}
             </ul>
@@ -90,7 +97,7 @@ export default function SidebarNav({links}: SidebarNavProps) {
     const groupedLinks = groupLinksByCategory(links);
 
     return(
-        <nav className="overflow-y-auto flex flex-col gap-3 h-full py-10">
+        <nav className="overflow-y-auto flex flex-col gap-3 h-full">
             {Object.entries(groupedLinks).map(([category, links], index) => (
                 <SidebarNavCategory key={index} category={category} links={links}/>
             ))}
