@@ -57,34 +57,27 @@ export function SidebarNavCategory({category, links}: CategoryProps) {
             <ul className="border-l border-border px-2">
                 {links.map((link) => (
                     <li className={clsx(
-                        "flex flex-row gap-2 items-center group",
+                        "flex flex-row items-center justify-between group text-sm *:px-3 *:py-2 rounded-md",
+                        {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
+                        {"text-link-foreground bg-link": pathname.includes(link.url_slug)}
                     )}
                     key={link.id}
                     >
-                        <Link className={clsx(
-                            "text-sm px-3 py-2 rounded-md grow w-full transition-colors",
-                            {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
-                            {"text-link-foreground bg-link": pathname.includes(link.url_slug)}
-                        )}
-                        href={`/documentation/${link.url_slug}`}
+                        <Link 
+                            prefetch={true}
+                            href={`/documentation/${link.url_slug}`}
+                            className="grow"
                         >
                             <p>{link.name}</p>
                         </Link>
-                        
                         <a target="_blank" className={clsx(
-                            "stroke-muted-foreground hover:stroke-primary transition-colors",
-                            {"invisible group-hover:visible": !pathname.includes(link.url_slug)},
-                            {"visible": pathname.includes(link.url_slug)}
-                        )} href={link.url}
+                                "transition-colors",
+                                {"invisible group-hover:visible stroke-muted-foreground hover:stroke-primary": !pathname.includes(link.url_slug)},
+                                {"visible stroke-link-foreground": pathname.includes(link.url_slug)}
+                            )} href={link.url}
                         >
                             <ExternalLink size={18} className="stroke-inherit"/>
                         </a>
-
-                        <LinkFlag className={clsx(
-                            {"invisible group-hover:visible": !pathname.includes(link.url_slug)},
-                            {"visible": pathname.includes(link.url_slug)}
-                        )}
-                        />
                     </li>
                 ))}
             </ul>
@@ -97,7 +90,7 @@ export default function SidebarNav({links}: SidebarNavProps) {
     const groupedLinks = groupLinksByCategory(links);
 
     return(
-        <nav className="overflow-y-auto flex flex-col gap-3 h-full">
+        <nav className="overflow-y-auto styled-scrollbar flex flex-col gap-3 h-full">
             {Object.entries(groupedLinks).map(([category, links], index) => (
                 <SidebarNavCategory key={index} category={category} links={links}/>
             ))}

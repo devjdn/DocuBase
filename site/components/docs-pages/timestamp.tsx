@@ -6,6 +6,6 @@ export default function Timestamp({timestamp}: {timestamp: string}) {
     const formattedTimestamp = format(parsedTimestamp, "PPP");
 
     return(
-        <p className="text-sm text-muted-foreground">{formattedTimestamp}</p>
+        <p className="text-sm text-muted-foreground">Link submitted on {formattedTimestamp}</p>
     );
 }

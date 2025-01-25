@@ -15,7 +15,7 @@ export default function HeaderNav() {
 
     return(
         <nav>
-            <ul className="flex flex-col items-center justify-start gap-6 lg:flex-row">
+            <ul className="flex flex-col items-center justify-start gap-6 md:flex-row">
                 {topLinks.map((link, index) => (
                     <li key={index}>
                         <Link className={clsx(

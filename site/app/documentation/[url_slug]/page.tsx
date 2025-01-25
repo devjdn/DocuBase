@@ -1,3 +1,4 @@
+import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
 import Timestamp from "@/components/docs-pages/timestamp";
 import Heading1 from "@/components/typography/headings";
@@ -21,9 +22,7 @@ export default async function LinkPage({params}: {params: Promise<{url_slug: str
     return(
         <main className="grow max-w-5xl p-10">
             <DocHeader category={link.link_category} name={link.name}/>
-            <a className="text-link-foreground" href={link.url} target="_blank">{link.url}</a>
-            <p className="text-muted-foreground">{link.description}</p>
-            <Timestamp timestamp={link.created_at} />
+            <DocDetails url={link.url} description={link.description} created_at={link.created_at}/>
         </main>
     );
 }
