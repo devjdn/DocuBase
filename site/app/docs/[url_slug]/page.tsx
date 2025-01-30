@@ -19,9 +19,9 @@ export default async function LinkPage({params}: {params: Promise<{url_slug: str
     }
 
     return(
-        <main className="grow max-w-5xl px-5 py-10 md:p-10">
+        <section>
             <DocHeader category={link.categories.name} name={link.name}/>
             <DocDetails url={link.url} description={link.description} created_at={link.created_at}/>
-        </main>
+        </section>
     );
 }

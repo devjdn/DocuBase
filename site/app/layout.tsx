@@ -44,6 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={switzer.className} suppressHydrationWarning>
       <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
+        {/* <script
+            crossOrigin="anonymous"
+            src="//unpkg.com/react-scan/dist/auto.global.js"
+        /> */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

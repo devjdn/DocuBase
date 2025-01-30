@@ -1,7 +1,7 @@
-export default function SidebarFooter() {
+export default function SidebarFooter({children}: {children: React.ReactNode}) {
     return(
-        <footer className="px-5 pt-2 pb-5">
-
+        <footer className="flex flex-col gap-1">
+            {children}
         </footer>
     )
 }

@@ -13,8 +13,6 @@ export default async function Sidebar() {
         return <div>Error fetching data</div>; // Or a loading indicator
     }
 
-    console.log(links);
-
     return(
         <SidebarWrapper links={links}/>
     );

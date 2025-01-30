@@ -73,7 +73,7 @@ export function SidebarCategoryButton({icon, category, toggleCategory, categoryO
     const { isOpen } = useSidebar();
 
     return(
-        <button className="flex flex-row items-center justify-between gap-2 w-full p-2 hover:bg-muted rounded-md cursor-pointer" onClick={toggleCategory}>
+        <button className="flex flex-row items-center justify-between gap-2 h-[36px] w-full px-2 hover:bg-muted rounded-md cursor-pointer" onClick={toggleCategory}>
             <div className="flex items-center gap-2">
                 {icon}
                 {isOpen && (
@@ -144,11 +144,10 @@ export function SidebarNavCategory({category, icon, links}: CategoryProps) {
 
 export default function SidebarNav({links}: SidebarNavProps) {
     const pathname = usePathname();
-    const { isMobile, state, isOpenMobile, setIsOpenMobile, isOpen } = useSidebar();
-    const groupedLinks = groupLinksByCategory(links);
+    const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
 
     return(
-        <nav className="px-5 pb-5 overflow-y-auto styled-scrollbar flex flex-col gap-3 w-full h-full relative">
+        <nav className="overflow-y-auto styled-scrollbar flex flex-col gap-3 w-full h-full relative">
             <div className={clsx(
             )}>
                 {Object.entries(groupedLinks).map(([category, links], index) => (
