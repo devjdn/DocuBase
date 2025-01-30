@@ -1,7 +1,6 @@
 import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
-import Timestamp from "@/components/docs-pages/timestamp";
-import Heading1 from "@/components/typography/headings";
+import { Heading1 } from "@/components/typography/headings";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function LinkPage({params}: {params: Promise<{url_slug: string}>}) {
