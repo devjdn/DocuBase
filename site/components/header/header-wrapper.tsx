@@ -7,19 +7,16 @@ import GithubStar from "../buttons/github-star";
 
 export default function HeaderWrapper() {
     return(
-        <header className="w-full border-b border-b-foreground/10">
+        <header className="bg-background/50 z-50 backdrop-blur-sm w-full border-b border-b-foreground/10 sticky top-0 left-0">
             <nav className="w-full flex justify-center">
                 <div className="w-full flex justify-between items-center py-3 px-5">
-                    <div className="flex gap-16 items-center">
-                        <div className="flex items-center font-semibold text-lg">
-                            <Link href={"/"}>
-                                <div className="flex flex-row">
-                                    {/* <FileJson2Icon/> */}
-                                    <FileText className="stroke-[hsl(var(--brand))]"/>
-                                    DocuBase
-                                </div>
-                            </Link>
-                        </div>
+                    <div className="flex gap-4 items-center">
+                        <Link href={"/"}>
+                            <div className="flex flex-row items-center font-semibold text-lg leading-none">
+                                <FileText className="stroke-[hsl(var(--brand))]"/>
+                                DocuBase
+                            </div>
+                        </Link>
 
                         <HeaderNav/>
                     </div>

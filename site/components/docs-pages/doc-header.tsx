@@ -1,4 +1,4 @@
-import Heading1 from "../typography/headings";
+import { Heading1 } from "../typography/headings";
 
 export default function DocHeader({category, name}: {category: string; name: string;}){
     return(

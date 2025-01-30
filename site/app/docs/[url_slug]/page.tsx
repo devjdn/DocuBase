@@ -10,7 +10,7 @@ export default async function LinkPage({params}: {params: Promise<{url_slug: str
     const supabase = await createClient();
     const { data: link, error } = await supabase
     .from("links")
-    .select("*")
+    .select("*, categories(name)")
     .eq("url_slug", url_slug)
     .single();
 
@@ -20,8 +20,8 @@ export default async function LinkPage({params}: {params: Promise<{url_slug: str
     }
 
     return(
-        <main className="grow max-w-5xl p-10">
-            <DocHeader category={link.link_category} name={link.name}/>
+        <main className="grow max-w-5xl px-5 py-10 md:p-10">
+            <DocHeader category={link.categories.name} name={link.name}/>
             <DocDetails url={link.url} description={link.description} created_at={link.created_at}/>
         </main>
     );

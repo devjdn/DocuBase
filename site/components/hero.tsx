@@ -18,7 +18,7 @@ export default function Header() {
         </a>
       </div>
       <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl font-bold lg:text-4xl leading-tight! mx-auto max-w-xl text-center">
+      <p className="text-3xl font-semibold lg:text-4xl leading-tight! mx-auto max-w-xl text-center">
         Streamlining access to developer documentation.
       </p>
       <div className="w-full p-[1px] bg-linear-to-r from-transparent via-brand/10 to-transparent my-8" />

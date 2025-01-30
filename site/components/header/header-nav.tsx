@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 export const topLinks = [
-    {name: 'Documentation', href: '/documentation'},
+    {name: 'Docs', href: '/docs'},
     {name: 'Submit a link', href: '/submit-a-link'},
-    {name: 'About', href: '/about'}
 ]
 
 export default function HeaderNav() {
@@ -15,7 +14,7 @@ export default function HeaderNav() {
 
     return(
         <nav>
-            <ul className="flex flex-col items-center justify-start gap-6 md:flex-row">
+            <ul className="hidden ml-16 md:flex flex-col items-center justify-start gap-6 md:flex-row">
                 {topLinks.map((link, index) => (
                     <li key={index}>
                         <Link className={clsx(
