@@ -143,7 +143,6 @@ export function SidebarNavCategory({category, icon, links}: CategoryProps) {
 }
 
 export default function SidebarNav({links}: SidebarNavProps) {
-    const pathname = usePathname();
     const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
 
     return(
@@ -154,7 +153,6 @@ export default function SidebarNav({links}: SidebarNavProps) {
                     <SidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>
                 ))}
             </div>
-            {/* <div className="sticky bottom-0 left-0 h-6 w-full bg-linear-to-b from-transparent to-background" data-purpose="For anyone wondering what this element is, it is the little thing at the bottom of the nav that makes it fade away. It's only really visible once you open up some categories lol."></div> */}
         </nav>
     );
 }
