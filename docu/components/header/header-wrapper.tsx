@@ -1,6 +1,5 @@
 import HeaderAuth from "../header-auth";
 import Link from "next/link";
-import { ThemeSwitcher } from "../../../site/components/theme-switcher";
 import { FileText } from "lucide-react";
 import GithubStar from "../buttons/github-star";
 
