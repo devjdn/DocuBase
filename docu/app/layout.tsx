@@ -33,10 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
-        <script
+        {/* <script
             crossOrigin="anonymous"
             src="//unpkg.com/react-scan/dist/auto.global.js"
-        />
+        /> */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
