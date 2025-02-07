@@ -1,5 +1,5 @@
 "use client";
-import { useSidebar } from "@/app/providers/sidebar-provider";
+import { useSidebar } from "@/providers/sidebar-provider";
 import clsx from "clsx";
 
 interface SidebarActionProps {

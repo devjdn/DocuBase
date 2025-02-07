@@ -1,7 +1,7 @@
 "use client";
 
-import SidebarNav, { SidebarNavProps } from "./sidebar-nav";
-import { useSidebar } from "@/app/providers/sidebar-provider";
+import SidebarNav, { SidebarNavProps } from "./sidebar-nav/sidebar-nav";
+import { useSidebar } from "@/providers/sidebar-provider";
 import clsx from "clsx";
 import SidebarHeader from "./sidebar-header";
 import SidebarFooter from "./sidebar-footer";

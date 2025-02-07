@@ -5,7 +5,7 @@ export default async function Sidebar() {
     const supabase = await createClient();
     const { data: links, error } = await supabase
         .from("links")
-        .select(`*, categories (name)`)
+        .select("*, categories (name)")
         .order("category_id", {ascending: true});
 
     if (error || !links) {

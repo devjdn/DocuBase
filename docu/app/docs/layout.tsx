@@ -1,5 +1,5 @@
 import Sidebar from "@/components/sidebar/sidebar";
-import { SidebarProvider } from "@/app/providers/sidebar-provider";
+import { SidebarProvider } from "@/providers/sidebar-provider";
 
 export default function DocumentationLayout({children}: {children: React.ReactNode}) {
     return(

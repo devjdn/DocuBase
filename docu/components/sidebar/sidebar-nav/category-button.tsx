@@ -1,4 +1,4 @@
-import { useSidebar } from "@/app/providers/sidebar-provider";
+import { useSidebar } from "@/providers/sidebar-provider";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 

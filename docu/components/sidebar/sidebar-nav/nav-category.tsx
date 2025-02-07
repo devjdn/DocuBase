@@ -1,10 +1,10 @@
 import * as React from "react";
-import { CategoryProps } from "../sidebar-nav";
+import { CategoryProps } from "./sidebar-nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { SidebarCategoryButton } from "../sidebar-category/sidebar-category-button";
-import { useSidebar } from "@/app/providers/sidebar-provider";
+import { SidebarCategoryButton } from "./category-button";
+import { useSidebar } from "@/providers/sidebar-provider";
 import { ExternalLink } from "lucide-react";
 import SidebarLinkContent from "./link-content";
 

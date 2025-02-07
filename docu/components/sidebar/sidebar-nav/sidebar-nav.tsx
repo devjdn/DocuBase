@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Box, BrainCircuit, ChevronRight, CircleFadingPlus, Container, Database, ExternalLink, FlaskConical, Layers, LayoutDashboard, LibraryBig, Server, Shield, TerminalSquare } from "lucide-react";
-import { useSidebar } from "@/app/providers/sidebar-provider";
-import { SidebarNavCategory } from "./sidebar-nav/nav-category";
+import { useSidebar } from "@/providers/sidebar-provider";
+import { SidebarNavCategory } from "./nav-category";
 
 export interface SidebarNavProps {
     links: {

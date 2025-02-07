@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+    <html lang="en" className={switzer.className} suppressHydrationWarning>
       <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
         {/* <script
             crossOrigin="anonymous"
