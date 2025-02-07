@@ -4,7 +4,7 @@ export interface HeadingProps {
 
 function Heading1({text}: HeadingProps) {
     return(
-        <h1 className="font-semibold text-3xl text-foreground mb-4">{text}</h1>
+        <h1 className="font-medium text-3xl text-foreground mb-4">{text}</h1>
     );
 }
 
