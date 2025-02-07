@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Box, BrainCircuit, ChevronRight, CircleFadingPlus, Container, Database, ExternalLink, FlaskConical, Layers, LayoutDashboard, LibraryBig, Server, Shield, TerminalSquare } from "lucide-react";
 import { useSidebar } from "@/app/providers/sidebar-provider";
+import { SidebarNavCategory } from "./sidebar-nav/nav-category";
 
 export interface SidebarNavProps {
     links: {
@@ -68,79 +69,6 @@ export const groupLinksByCategory = (links: SidebarNavProps['links']) => {
         // and the values are arrays of links
     }, {} as Record<string, SidebarNavProps['links']>);
 };
-
-export function SidebarCategoryButton({icon, category, toggleCategory, categoryOpen}: {icon: React.ReactNode; category: string; toggleCategory: () => void; categoryOpen: boolean;}) {
-    const { isOpen } = useSidebar();
-
-    return(
-        <button className="flex flex-row items-center justify-between gap-2 h-[36px] w-full px-2 hover:bg-muted rounded-md cursor-pointer" onClick={toggleCategory}>
-            <div className="flex items-center gap-2">
-                {icon}
-                {isOpen && (
-                    <p className="text-sm text-foreground stroke-foreground">{category}</p>
-                )}
-            </div>
-            {isOpen && (
-                <ChevronRight className={clsx(
-                    {"rotate-90 transition-transform": categoryOpen}
-                )} size={16}/>
-            )}
-        </button>
-    )
-}
-
-export function SidebarNavCategory({category, icon, links}: CategoryProps) {
-    const pathname = usePathname();
-    const { isOpen, setIsOpen} = useSidebar();
-    const [categoryOpen, setCategoryOpen] = React.useState<boolean>(false);
-
-    return(
-        <div className="w-full">
-            <SidebarCategoryButton icon={icon} category={category} toggleCategory={() => {
-                setCategoryOpen((prev) => !prev);
-                if (!isOpen) {
-                    setIsOpen(true);
-                }
-            } } categoryOpen={categoryOpen}/>
-            {isOpen && (
-                <div className={clsx(
-                    "pl-4",
-                    {"hidden": !categoryOpen}
-                )}
-                data-category-open={categoryOpen}
-                >
-                    <ul className="border-l border-border mt-1 mb-2 pl-2">
-                        {links.map((link) => (
-                            <li className={clsx(
-                                "flex flex-row items-center justify-between group text-sm *:px-3 *:py-2 rounded-md",
-                                {"text-muted-foreground hover:text-primary": !pathname.includes(link.url_slug)},
-                                {"text-link-foreground bg-link": pathname.includes(link.url_slug)}
-                            )}
-                            key={link.id}
-                            >
-                                <Link 
-
-                                    href={`/docs/${link.url_slug}`}
-                                    className="grow"
-                                >
-                                    <p>{link.name}</p>
-                                </Link>
-                                <a target="_blank" className={clsx(
-                                        "transition-colors",
-                                        {"invisible group-hover:visible stroke-muted-foreground hover:stroke-primary": !pathname.includes(link.url_slug)},
-                                        {"visible stroke-link-foreground": pathname.includes(link.url_slug)}
-                                    )} href={link.url}
-                                >
-                                    <ExternalLink size={18} className="stroke-inherit"/>
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-        </div>
-    );
-}
 
 export default function SidebarNav({links}: SidebarNavProps) {
     const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
