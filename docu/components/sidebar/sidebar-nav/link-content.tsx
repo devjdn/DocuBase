@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ExternalLink } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { SidebarNavProps } from "../sidebar-nav";
+import { SidebarNavProps } from "./sidebar-nav";
 import Link from "next/link";
 
 export default function SidebarLinkContent({url_slug, name, url}: {url_slug: string; name: string; url: string;}) {
