@@ -1,9 +1,6 @@
 "use client";
 
-import { Sun, Moon, Laptop } from "lucide-react";
 import { SubmitButton } from "../submit-button";
-import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { linkCategories } from "@/lib/docubase";

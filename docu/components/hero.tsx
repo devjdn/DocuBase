@@ -1,5 +1,3 @@
-import NextLogo from "./next-logo";
-import SupabaseLogo from "./supabase-logo";
 import DocsPreviewLight from "../app/preview-docs-light.png";
 import Link from "next/link";
 
