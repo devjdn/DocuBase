@@ -6,7 +6,8 @@ import clsx from "clsx";
 import SidebarHeader from "./sidebar-header";
 import SidebarFooter from "./sidebar-footer";
 import SidebarAction from "./sidebar-buttons/sidebar-action";
-import { PanelLeft, Send } from "lucide-react";
+import { PanelLeft } from "lucide-react";
+import LinkSubmissionPortal from "../link-submission/submission-portal";
 
 export default function SidebarWrapper({links}: SidebarNavProps){
     const { isMobile, state, toggleSidebar } = useSidebar();
@@ -34,14 +35,7 @@ export default function SidebarWrapper({links}: SidebarNavProps){
             </SidebarHeader>
             <SidebarNav links={links}/>
             <SidebarFooter>
-                <SidebarAction
-                    buttonColor={"primary"}
-                    buttonWidth={"full"}
-                    centered={true}
-                    icon={<Send size={18} />} 
-                    label={"Submit a link"} 
-                    
-                />
+                <LinkSubmissionPortal/>
             </SidebarFooter>
         </div>
     );

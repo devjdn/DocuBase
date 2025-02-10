@@ -1,5 +1,5 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { Inter } from "next/font/google";
+import { Inter, Host_Grotesk, Hubot_Sans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderWrapper from "@/components/header/header-wrapper";
@@ -25,13 +25,18 @@ const switzer = localFont({
   display: 'swap',
 });
 
+const host = Host_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={switzer.className} suppressHydrationWarning>
+    <html lang="en" className={host.className} suppressHydrationWarning>
       <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
         {/* <script
             crossOrigin="anonymous"

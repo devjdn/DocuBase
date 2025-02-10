@@ -7,7 +7,7 @@ interface SidebarActionProps {
     buttonWidth: "full" | "fit";
     centered: boolean;
     icon: React.ReactNode;
-    onClick?: () => void;
+    onClick: () => void;
     label?: string;
 }
 
