@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import SidebarWrapper from "./sidebar-wrapper";
+import { SidebarProvider } from "@/providers/sidebar-provider";
 
 export default async function Sidebar() {
     const supabase = await createClient();
@@ -14,6 +15,8 @@ export default async function Sidebar() {
     }
 
     return(
-        <SidebarWrapper links={links}/>
+        <SidebarProvider>
+            <SidebarWrapper links={links}/>
+        </SidebarProvider>
     );
 }
