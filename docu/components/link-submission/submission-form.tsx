@@ -2,7 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
-import { SubmitButton } from "../submit-button";
+import { SubmitButton } from "../ui/submit-button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { generateUrlSlug, linkSubmissionSchema } from "@/lib/schemas/link-submission-schema";

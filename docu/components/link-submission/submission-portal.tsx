@@ -5,9 +5,10 @@ import { createPortal } from "react-dom";
 import LinkSubmissionForm from "./submission-form";
 import SidebarAction from "../sidebar/sidebar-buttons/sidebar-action";
 import { Send, X } from "lucide-react";
-import { Heading2 } from "../typography/headings";
+import { useUser } from "@clerk/nextjs";
 
 export default function LinkSubmissionPortal() {
+    const { isSignedIn } = useUser();
     const [mounted, setMounted] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +32,11 @@ export default function LinkSubmissionPortal() {
         }
     }, [mounted, menuRef]);
 
-    return(
+    if (!isSignedIn) {
+        return <p>Sign in to submit links</p>;
+    }
+
+    return (
         <>
             <SidebarAction
                 buttonColor={"primary"}
@@ -54,5 +59,5 @@ export default function LinkSubmissionPortal() {
                 document.body
             )}
         </>
-    );
+    )
 }

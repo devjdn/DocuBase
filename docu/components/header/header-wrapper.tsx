@@ -1,7 +1,13 @@
-import HeaderAuth from "../header-auth";
 import Link from "next/link";
 import { FileText } from "lucide-react";
 import GithubStar from "../buttons/github-star";
+import {
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+  } from '@clerk/nextjs';
+import { Button } from "../ui/button";
 
 export default function HeaderWrapper() {
     return(
@@ -17,7 +23,14 @@ export default function HeaderWrapper() {
                         </Link>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-2">
-                        <HeaderAuth />
+                        <SignedOut>
+                          <SignInButton mode="modal">
+                            <Button size="sm" variant={"default"}>Sign In</Button>
+                          </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                          <UserButton />
+                        </SignedIn>
                         <GithubStar/>
                     </div>
                 </div>
