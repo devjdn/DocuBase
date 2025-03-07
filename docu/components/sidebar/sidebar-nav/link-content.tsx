@@ -14,7 +14,7 @@ export default function SidebarLinkContent({url_slug, name, url}: {url_slug: str
             {"text-link-foreground bg-link": pathname.match(url_slug)}
         )}>
             <Link
-            href={`/docs/${url_slug}`}
+            href={`/links/${url_slug}`}
             className="grow"
             >
                 <p>{name}</p>

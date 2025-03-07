@@ -8,6 +8,7 @@ import SidebarFooter from "./sidebar-footer";
 import SidebarAction from "./sidebar-buttons/sidebar-action";
 import { PanelLeft } from "lucide-react";
 import LinkSubmissionPortal from "../link-submission/submission-portal";
+import SearchBar from "../search/search-bar";
 
 export default function SidebarWrapper({links}: SidebarNavProps){
     const { isMobile, state, toggleSidebar } = useSidebar();
@@ -33,6 +34,7 @@ export default function SidebarWrapper({links}: SidebarNavProps){
                     onClick={toggleSidebar}
                  />
             </SidebarHeader>
+            {/* <SearchBar/> */}
             <SidebarNav links={links}/>
             <SidebarFooter>
                 <LinkSubmissionPortal/>

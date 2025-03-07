@@ -15,12 +15,12 @@ export default function SidebarAction({buttonColor, buttonWidth, centered, icon,
     const { isOpen, isOpenMobile } = useSidebar();
     return(
         <button className={clsx(
-            "cursor-pointer px-2 h-[36px] rounded-md flex flex-row items-center gap-2",
+            "cursor-pointer px-2 h-9 rounded-md flex flex-row items-center gap-2",
             {"w-full": buttonWidth === "full"},
             {"w-fit": buttonWidth === "fit"},
             {"justify-center": centered},
             {"bg-primary text-primary-foreground": buttonColor === "primary"},
-            {"bg-secondary text-secondary-foreground border border-input": buttonColor === "secondary"},
+            {"bg-secondary text-secondary-foreground": buttonColor === "secondary"},
         )}
         onClick={onClick}
         >

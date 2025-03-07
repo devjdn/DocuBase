@@ -1,11 +1,9 @@
 import * as React from "react";
 import { CategoryProps } from "./sidebar-nav";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { SidebarCategoryButton } from "./category-button";
 import { useSidebar } from "@/providers/sidebar-provider";
-import { ExternalLink } from "lucide-react";
 import SidebarLinkContent from "./link-content";
 
 export function SidebarNavCategory({category, icon, links}: CategoryProps) {

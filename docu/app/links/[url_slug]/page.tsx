@@ -1,8 +1,7 @@
 import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
 import { createClient } from "@/utils/supabase/server";
-
-export const dynamic = "force-dynamic";
+import { Suspense } from "react";
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
@@ -21,10 +20,12 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
         }
 
         return (
-            <section>
-                <DocHeader category={link.categories.name} name={link.name} />
-                <DocDetails url={link.url} description={link.description} created_at={link.created_at} />
-            </section>
+            <Suspense fallback="Loading...">
+                <section>
+                    <DocHeader category={link.categories.name} name={link.name} />
+                    <DocDetails url={link.url} description={link.description} created_at={link.created_at} />
+                </section>
+            </Suspense>
         );
     } catch (error) {
         console.error("Error resolving params:", error);

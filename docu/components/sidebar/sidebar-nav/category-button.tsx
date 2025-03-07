@@ -6,7 +6,7 @@ export function SidebarCategoryButton({icon, category, toggleCategory, categoryO
     const { isOpen } = useSidebar();
 
     return(
-        <button className="flex flex-row items-center justify-between gap-2 h-[36px] w-full px-2 hover:bg-muted rounded-md cursor-pointer" onClick={toggleCategory}>
+        <button className="flex flex-row items-center justify-between gap-2 h-9 w-full px-2 hover:bg-accent rounded-md cursor-pointer" onClick={toggleCategory}>
             <div className="flex items-center gap-2">
                 {icon}
                 {isOpen && (

@@ -1,4 +1,3 @@
-// import BreadcrumbNav from "@/components/nav/breadcrumb";
 import { Heading1, Heading2 } from "@/components/typography/headings"
 
 export default function DocumentationPage(){

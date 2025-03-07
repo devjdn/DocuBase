@@ -34,18 +34,18 @@ export interface CategoryProps {
 }
 
 const categoryIcons: Record<string, React.ReactNode> = {
-    Frameworks: <Box size={20}/>,
-    Libraries: <LibraryBig size={20}/>,
-    Databases: <Database size={20}/>,
-    Authentication: <Shield size={20}/>,
-    UI: <LayoutDashboard size={20}/>,
-    DevOps: <Container size={20}/>,
-    'Hosting & Deployment': <Server size={20}/>,
-    Testing: <FlaskConical size={20}/>,
-    'AI & Machine Learning': <BrainCircuit size={20}/>,
-    CMS: <CircleFadingPlus size={20}/>,
-    'CLI Tools': <TerminalSquare size={20}/>,
-    'Other': <Layers size={20}/>,
+    Frameworks: <Box className="stroke-muted-foreground" size={20}/>,
+    Libraries: <LibraryBig className="stroke-muted-foreground" size={20}/>,
+    Databases: <Database className="stroke-muted-foreground" size={20}/>,
+    Authentication: <Shield className="stroke-muted-foreground" size={20}/>,
+    UI: <LayoutDashboard className="stroke-muted-foreground" size={20}/>,
+    DevOps: <Container className="stroke-muted-foreground" size={20}/>,
+    'Hosting & Deployment': <Server className="stroke-muted-foreground" size={20}/>,
+    Testing: <FlaskConical className="stroke-muted-foreground" size={20}/>,
+    'AI & Machine Learning': <BrainCircuit className="stroke-muted-foreground" size={20}/>,
+    CMS: <CircleFadingPlus className="stroke-muted-foreground" size={20}/>,
+    'CLI Tools': <TerminalSquare className="stroke-muted-foreground"size={20}/>,
+    'Other': <Layers className="stroke-muted-foreground" size={20}/>,
 }
 
 export const groupLinksByCategory = (links: SidebarNavProps['links']) => {
