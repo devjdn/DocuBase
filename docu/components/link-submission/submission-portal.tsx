@@ -3,12 +3,14 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import LinkSubmissionForm from "./submission-form";
-import SidebarAction from "../sidebar/sidebar-buttons/sidebar-action";
 import { Send, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
+import { Button } from "../ui/button";
+import { useSidebar } from "@/providers/sidebar-provider";
 
 export default function LinkSubmissionPortal() {
     const { isSignedIn } = useUser();
+    const { isOpen } = useSidebar();
     const [mounted, setMounted] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -38,14 +40,16 @@ export default function LinkSubmissionPortal() {
 
     return (
         <>
-            <SidebarAction
-                buttonColor={"primary"}
-                buttonWidth={"full"}
-                centered={true}
-                icon={<Send size={18} />} 
-                label={"Submit a link"}
+            <Button
                 onClick={togglePortal}
-            />
+                variant="outline"
+                justify="center"
+                size={isOpen ? "sm" : "icon"}
+                className="gap-2"
+            >
+                <Send size={18} />
+                {isOpen && <p>Submit a link</p>}
+            </Button>
             {mounted && createPortal(
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80">
                     <div className="rounded-xl bg-card p-10 shadow-lg border border-input text-card-foreground  w-full max-w-md" ref={menuRef}>

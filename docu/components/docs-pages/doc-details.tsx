@@ -1,4 +1,4 @@
-import Timestamp from "./timestamp";
+import Timestamp from "../typography/timestamp";
 
 export default function DocDetails({url, description, created_at}: {url: string; description: string; created_at: string;}) {
     return(

@@ -1,10 +1,10 @@
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
-import { Host_Grotesk } from "next/font/google";
+import { Host_Grotesk, Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderWrapper from "@/components/header/header-wrapper";
 import { ClerkProvider } from "@clerk/nextjs";
-// import localFont from "next/font/local";
+import localFont from "next/font/local";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -16,10 +16,15 @@ export const metadata = {
   description: "DocuBase provides a simple and intuitive way to access developer documentation.",
 };
 
-// const switzer = localFont({
-//   src: './fonts/Switzer-Variable.woff2',
-//   display: 'swap',
-// });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const switzer = localFont({
+  src: './fonts/Switzer-Variable.woff2',
+  display: 'swap',
+});
 
 const host = Host_Grotesk({
   subsets: ["latin"],
@@ -33,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={host.className} suppressHydrationWarning>
+      <html lang="en" className={switzer.className} suppressHydrationWarning>
         <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
           {/* <script
               crossOrigin="anonymous"

@@ -1,17 +1,22 @@
 "use client";
 
-import SidebarNav, { SidebarNavProps } from "./sidebar-nav/sidebar-nav";
+import SidebarNav from "./sidebar-nav/sidebar-nav";
 import { useSidebar } from "@/providers/sidebar-provider";
 import clsx from "clsx";
 import SidebarHeader from "./sidebar-header";
 import SidebarFooter from "./sidebar-footer";
-import SidebarAction from "./sidebar-buttons/sidebar-action";
 import { PanelLeft } from "lucide-react";
 import LinkSubmissionPortal from "../link-submission/submission-portal";
 import SearchBar from "../search/search-bar";
+import { Button } from "../ui/button";
+import { SidebarNavCategory } from "./sidebar-nav/nav-category";
+import React from "react";
+import { categoryIcons, groupLinksByCategory } from "@/lib/docubase";
+import { LinkTypes } from "@/app/types/links";
 
-export default function SidebarWrapper({links}: SidebarNavProps){
+export default function SidebarWrapper({links}: LinkTypes){
     const { isMobile, state, toggleSidebar } = useSidebar();
+    const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
 
     if(isMobile) {
         return <div></div>
@@ -19,23 +24,33 @@ export default function SidebarWrapper({links}: SidebarNavProps){
 
     return(
         <div className={clsx(
-            "sticky top-[64px] flex flex-col gap-4 bg-background styled-scrollbar border-[hsl(var(--border))] border-r h-[calc(100vh-60px)] p-5",
+            "sticky top-16 flex flex-col gap-4 bg-background styled-scrollbar border-[hsl(var(--border))] border-r h-[calc(100vh-60px)] p-5",
             {"auto": state === "closed"},
             {"w-68": state === "expanded"}
             )}
             data-sidebar-state={state}
         >
             <SidebarHeader>
-                <SidebarAction 
-                    buttonColor={"secondary"}
-                    buttonWidth={"fit"}
-                    centered={false}
-                    icon={<PanelLeft size={18} />}
+                <Button 
                     onClick={toggleSidebar}
-                 />
+                    size="icon"
+                    variant="ghost"
+                    justify="center"
+                    className="items-center"
+                >
+                    <PanelLeft size={18} />
+                </Button>
+
+                <SearchBar/>
             </SidebarHeader>
-            {/* <SearchBar/> */}
-            <SidebarNav links={links}/>
+
+            <SidebarNav>
+                {Object.entries(groupedLinks).map(([category, links], index) => (
+                    <SidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>               
+                ))}
+            </SidebarNav>
+
+
             <SidebarFooter>
                 <LinkSubmissionPortal/>
             </SidebarFooter>

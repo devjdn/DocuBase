@@ -2,8 +2,26 @@
 
 import { Search } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useSidebar } from "@/providers/sidebar-provider";
+import { Button } from "../ui/button";
 
 export default function SearchBar() {
+    const { isOpen, toggleSidebar } = useSidebar();
+
+    if (!isOpen) {
+        return(
+            <Button
+                onClick={toggleSidebar}
+                size="icon"
+                variant="ghost"
+                justify="center"
+                className="items-center"
+            >
+                <Search size={18}/>
+            </Button>
+        )
+    }
+
     return(
         <div>
             <form 
