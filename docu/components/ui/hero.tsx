@@ -1,7 +1,7 @@
 "use client";
 
-import DocsPreviewLight from "@/app/preview-docs-light.png";
-import DocsPreviewDark from "@/app/preview-docs-dark.png";
+import DocsPreviewLight from "@/public/preview-docs-light.png";
+import DocsPreviewDark from "@/public/preview-docs-dark.png";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
