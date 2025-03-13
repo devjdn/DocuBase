@@ -23,5 +23,6 @@ function Heading3({text}: HeadingProps) {
 
 export {
     Heading1,
-    Heading2
+    Heading2,
+    Heading3,
 }

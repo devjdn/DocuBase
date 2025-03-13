@@ -25,7 +25,7 @@ export default function SearchBar() {
     return(
         <div>
             <form 
-            className="bg-input h-9 px-2 flex items-center gap-2 rounded-md border-input border has-focus:outline-1" 
+            className="border border-input bg-background h-9 px-2 flex items-center gap-2 rounded-md ring-offset-background has-placeholder:text-muted-foreground has-focus-visible:outline-hidden has-focus-visible:ring-1 has-focus-visible:ring-brand has-focus-visible:ring-offset-2" 
             onSubmit={((e: FormEvent) => e.preventDefault())}
             >
                 <div>

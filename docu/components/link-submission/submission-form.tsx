@@ -6,7 +6,9 @@ import { SubmitButton } from "../ui/submit-button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { generateUrlSlug, linkSubmissionSchema } from "@/lib/schemas/link-submission-schema";
-import clsx from "clsx";
+import { Button } from "../ui/button";
+import { submitLink } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,6 +18,7 @@ const supabase = createClient(
 export default function LinkSubmissionForm() {
     const [categories, setCategories] = useState<{id: number; name: string;}[]>([]);
     const [selectedCategory, setCategory] = useState<number | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchCategories() {
@@ -40,24 +43,19 @@ export default function LinkSubmissionForm() {
             url: formData.get("linkUrl") as string,
             description: formData.get("linkDescription") as string,
             category_id: selectedCategory,
-            url_slug: generateUrlSlug(formData.get("linkName") as string)
+            url_slug: generateUrlSlug(formData.get("linkName") as string),
+            approval_status: "Pending",
         }
 
         const validatedData = linkSubmissionSchema.safeParse(formValues);
 
         if(!validatedData.success) {
-            console.error(`Validation failed. ${validatedData.error.format()}`);
+            console.error(`Validation failed. ${validatedData.error}`);
             return;
         }
 
-        const { data, error } = await supabase.from("links").insert([validatedData.data]);
-        console.log(data);
-
-        if (error) {
-            console.error("Error inserting data:", error);
-          } else {
-            console.log("Success:", data);
-        }
+        submitLink(validatedData.data);
+        console.log(validatedData.data);
     }
     
     return(
@@ -70,21 +68,19 @@ export default function LinkSubmissionForm() {
                 <Label htmlFor="linkUrl">Link URL</Label>
                 <Input name="linkUrl" placeholder="Link URL" required/>
             </div>
-            <div>
+            <div className="styled-scrollbar">
                 <Label htmlFor="linkCategory">Link category</Label>
                 <ul className="grid gap-2 grid-flow-col overflow-x-auto styled-scrollbar">
                     {categories.map((category, index) => (
                         <li key={index}>
-                            <button 
+                            <Button
                                 type="button"
-                                className={clsx(
-                                    "whitespace-nowrap grid-rows-2 rounded-md border border-input bg-background px-3 py-2 text-sm cursor-pointer",
-                                    {"bg-primary text-primary-foreground border-none": category.id === selectedCategory}
-                                )} 
+                                variant={selectedCategory === category.id ? "default" : "secondary"}
+                                size={"default"}
                                 onClick={() => setCategory(category.id)}
                             >
                                 {category.name}
-                            </button>
+                            </Button>
                         </li>
                     ))}
                 </ul>

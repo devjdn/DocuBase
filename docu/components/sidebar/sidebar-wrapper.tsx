@@ -15,7 +15,7 @@ import { categoryIcons, groupLinksByCategory } from "@/lib/docubase";
 import { LinkTypes } from "@/app/types/links";
 
 export default function SidebarWrapper({links}: LinkTypes){
-    const { isMobile, state, toggleSidebar } = useSidebar();
+    const { isMobile, state, toggleSidebar, isOpen } = useSidebar();
     const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
 
     if(isMobile) {
@@ -33,10 +33,9 @@ export default function SidebarWrapper({links}: LinkTypes){
             <SidebarHeader>
                 <Button 
                     onClick={toggleSidebar}
-                    size="icon"
-                    variant="ghost"
-                    justify="center"
-                    className="items-center"
+                    size={"icon"}
+                    variant={"ghost"}
+                    justify={"center"}
                 >
                     <PanelLeft size={18} />
                 </Button>

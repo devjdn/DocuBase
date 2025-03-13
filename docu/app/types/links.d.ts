@@ -12,3 +12,12 @@ export interface LinkTypes {
         url_slug: string;
     }[];
 }
+
+export interface LinkSubmission {
+    name: string;
+    url: string;
+    description: string;
+    category_id: number;
+    url_slug: string;
+    approval_status: string;
+}

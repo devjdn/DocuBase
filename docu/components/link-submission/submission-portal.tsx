@@ -1,16 +1,16 @@
 "use client";
 
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useRef, useEffect, use } from "react";
 import { createPortal } from "react-dom";
 import LinkSubmissionForm from "./submission-form";
-import { Send, X } from "lucide-react";
+import { CircleOff, Send, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useSidebar } from "@/providers/sidebar-provider";
 
 export default function LinkSubmissionPortal() {
     const { isSignedIn } = useUser();
-    const { isOpen } = useSidebar();
+    const { isOpen, toggleSidebar } = useSidebar();
     const [mounted, setMounted] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,26 @@ export default function LinkSubmissionPortal() {
     }, [mounted, menuRef]);
 
     if (!isSignedIn) {
-        return <p>Sign in to submit links</p>;
+        return(
+            <Button
+                onClick={
+                    () => {
+                        if(!isOpen) {
+                            toggleSidebar();
+                        }
+
+                        return null;
+                    }
+                }
+                variant="outline"
+                justify="center"
+                size={isOpen ? "sm" : "icon"}
+                className="gap-2"
+            >
+                <CircleOff size={18}/>
+                {isOpen && <p>Sign in to submit links</p>}
+            </Button>
+        );
     }
 
     return (
@@ -57,7 +76,7 @@ export default function LinkSubmissionPortal() {
                             <span className="text-2xl font-medium text-foreground">Submit a link</span>
                             <button onClick={togglePortal} className="cursor-pointer stroke-muted-foreground hover:stroke-foreground transition-colors"><X size={18}/></button>
                         </header>
-                        <LinkSubmissionForm/>
+                        <LinkSubmissionForm />
                     </div>
                 </div>,
                 document.body

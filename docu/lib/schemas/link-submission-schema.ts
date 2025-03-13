@@ -6,6 +6,7 @@ export const linkSubmissionSchema = z.object({
     description: z.string().min(15).max(350),
     category_id: z.number().min(1),
     url_slug: z.string().min(1),
+    approval_status: z.string().min(1),
 });
 
 export function generateUrlSlug(name: string): string {

@@ -25,7 +25,7 @@ export default function HeaderWrapper() {
                     <div className="flex flex-row items-center justify-center gap-2">
                         <SignedOut>
                           <SignInButton mode="modal">
-                            <Button size="sm" variant={"default"}>Sign In</Button>
+                            <Button size="default" variant={"default"}>Sign In</Button>
                           </SignInButton>
                         </SignedOut>
                         <SignedIn>
