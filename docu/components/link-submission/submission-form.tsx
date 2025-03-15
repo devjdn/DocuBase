@@ -60,15 +60,15 @@ export default function LinkSubmissionForm() {
     
     return(
         <form action={handleSubmit} className="flex flex-col gap-4">
-            <div>
+            <div className="flex flex-col">
                 <Label htmlFor="name">Name</Label>
                 <Input name="linkName" placeholder="Name" required/>
             </div>
-            <div>
+            <div className="flex flex-col">
                 <Label htmlFor="linkUrl">Link URL</Label>
                 <Input name="linkUrl" placeholder="Link URL" required/>
             </div>
-            <div className="styled-scrollbar">
+            <div className="styled-scrollbar flex flex-col">
                 <Label htmlFor="linkCategory">Link category</Label>
                 <ul className="grid gap-2 grid-flow-col overflow-x-auto styled-scrollbar">
                     {categories.map((category, index) => (
@@ -85,11 +85,11 @@ export default function LinkSubmissionForm() {
                     ))}
                 </ul>
             </div>
-            <div>
+            <div className="flex flex-col">
                 <Label htmlFor="linkDescription">Link description</Label>
-                <textarea name="linkDescription" placeholder="Link description" className="field-sizing-content flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+                <textarea name="linkDescription" placeholder="Link description" className="field-sizing-content flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
             </div>
-            <SubmitButton className="w-fit mx-auto cursor-pointer">
+            <SubmitButton className="mx-auto cursor-pointer">
                 Submit
             </SubmitButton>
         </form>

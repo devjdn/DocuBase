@@ -18,7 +18,7 @@ export default function HeaderWrapper() {
                         <Link href={"/"}>
                             <div className="flex flex-row items-center font-semibold text-lg leading-none">
                                 <FileText className="stroke-[hsl(var(--brand))]"/>
-                                DocuBase
+                                <span>DocuBase</span>
                             </div>
                         </Link>
                     </div>

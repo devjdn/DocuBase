@@ -7,6 +7,7 @@ import { CircleOff, Send, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useSidebar } from "@/providers/sidebar-provider";
+import { Heading2 } from "../typography/headings";
 
 export default function LinkSubmissionPortal() {
     const { isSignedIn } = useUser();
@@ -61,7 +62,7 @@ export default function LinkSubmissionPortal() {
         <>
             <Button
                 onClick={togglePortal}
-                variant="outline"
+                variant="default"
                 justify="center"
                 size={isOpen ? "sm" : "icon"}
                 className="gap-2"
@@ -71,10 +72,12 @@ export default function LinkSubmissionPortal() {
             </Button>
             {mounted && createPortal(
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80">
-                    <div className="rounded-xl bg-card p-10 shadow-lg border border-input text-card-foreground  w-full max-w-md" ref={menuRef}>
+                    <div className="rounded-xl bg-card p-8 shadow-lg border border-input text-card-foreground  w-full max-w-md" ref={menuRef}>
                         <header className="flex flex-row justify-between items-center gap-4 mb-6">
-                            <span className="text-2xl font-medium text-foreground">Submit a link</span>
-                            <button onClick={togglePortal} className="cursor-pointer stroke-muted-foreground hover:stroke-foreground transition-colors"><X size={18}/></button>
+                            <div className="flex h-fit">
+                                <Heading2 text={"Link submission"}/>
+                            </div>
+                            <Button onClick={togglePortal} variant={"ghost"} size={"icon"} justify={"center"}><X size={18}/></Button>
                         </header>
                         <LinkSubmissionForm />
                     </div>

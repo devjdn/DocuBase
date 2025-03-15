@@ -13,11 +13,17 @@ export interface LinkTypes {
     }[];
 }
 
-export interface LinkSubmission {
+export interface LinkSubmissionTypes {
+    id?: number;
     name: string;
     url: string;
     description: string;
-    category_id: number;
-    url_slug: string;
+    category_id?: number;
+    url_slug?: string;
     approval_status: string;
-}
+    created_at?: string;
+    user_id?: string;
+    categories?: {
+        name: string;
+    }[];
+}[];
