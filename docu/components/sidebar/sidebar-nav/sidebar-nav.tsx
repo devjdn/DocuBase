@@ -1,5 +1,4 @@
 import * as React from "react";
-import { LinkTypes } from "@/app/types/links";
 
 export default function SidebarNav({children}: {children: React.ReactNode}) {
 

@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 
 export function SidebarNavCategory({category, icon, links}: CategoryProps) {
-    const pathname = usePathname();
     const { isOpen, setIsOpen} = useSidebar();
     const [categoryOpen, setCategoryOpen] = React.useState<boolean>(false);
 
@@ -51,9 +50,9 @@ export function SidebarNavCategory({category, icon, links}: CategoryProps) {
                 data-category-open={categoryOpen}
                 >
                     <ul className="border-l border-border mt-1 mb-2 pl-2">
-                        {links.map((link) => (
+                        {links.map((link, linkIndex) => (
                             <li
-                            key={link.id}
+                            key={linkIndex}
                             >
                                 <SidebarLinkContent url_slug={link.url_slug} name={link.name} url={link.url}/>
                             </li>

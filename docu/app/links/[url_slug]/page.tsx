@@ -1,3 +1,4 @@
+import { SingleLink } from "@/app/types/links";
 import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
 import { createClient } from "@/utils/supabase/server";
@@ -8,13 +9,15 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
         const { url_slug } = await params;
 
         const supabase = await createClient();
-        const { data: link, error } = await supabase
+        const { data, error } = await supabase
             .from("links")
-            .select("*, categories(name)")
+            .select("id, name, url, description, created_at, categories(name)")
             .eq("url_slug", url_slug)
-            .maybeSingle();
+            .single()
+            .overrideTypes<SingleLink>();
 
-        if (error || !link) {
+
+        if (error || !data) {
             console.error("Error fetching link data:", error);
             return <div>Error fetching data. Link not found.</div>;
         }
@@ -22,8 +25,8 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
         return (
             <Suspense fallback="Loading...">
                 <section>
-                    <DocHeader category={link.categories.name} name={link.name} />
-                    <DocDetails url={link.url} description={link.description} created_at={link.created_at} />
+                    <DocHeader category={data.categories.name} name={data.name} />
+                    <DocDetails url={data.url} description={data.description} created_at={data.created_at} />
                 </section>
             </Suspense>
         );

@@ -1,4 +1,4 @@
-import { LinkTypes } from "@/app/types/links";
+import { LinkArray, SidebarLinkInfo } from "@/app/types/links";
 import { Box, BrainCircuit, CircleFadingPlus, Container, Database, FlaskConical, Layers, LayoutDashboard, LibraryBig, Server, Shield, TerminalSquare } from "lucide-react";
 
 export const linkCategories = [
@@ -31,7 +31,7 @@ export const categoryIcons: Record<string, React.ReactNode> = {
     'Other': <Layers className="stroke-muted-foreground" size={20}/>,
 }
 
-export const groupLinksByCategory = (links: LinkTypes['links']) => {
+export const groupLinksByCategory = (links: SidebarLinkInfo['links']) => {
     // The reduce method is used to accumulate a result
     // In this case, it is an object
     return links.reduce((acc, link) => {
@@ -50,5 +50,5 @@ export const groupLinksByCategory = (links: LinkTypes['links']) => {
         // The initial value of `acc` is an empty object, typed as `Record<string, LinkTypes['links']>`.
         // `acc` will become an object where the keys are strings
         // and the values are arrays of links
-    }, {} as Record<string, LinkTypes['links']>);
+    }, {} as Record<string, SidebarLinkInfo['links']>);
 };

@@ -2,9 +2,9 @@
 
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { auth } from '@clerk/nextjs/server'
-import { LinkSubmissionTypes } from "./types/links";
+import { SingleLinkSubmission } from "./types/links";
 
-export async function submitLink(link: LinkSubmissionTypes) {
+export async function submitLink(link: SingleLinkSubmission) {
     const client = await createClerkSupabaseClientSsr();
 
     try{

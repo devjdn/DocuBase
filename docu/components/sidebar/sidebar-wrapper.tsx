@@ -10,15 +10,17 @@ import LinkSubmissionPortal from "../link-submission/submission-portal";
 import SearchBar from "../search/search-bar";
 import { Button } from "../ui/button";
 import { SidebarNavCategory } from "./sidebar-nav/nav-category";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { categoryIcons, groupLinksByCategory } from "@/lib/docubase";
-import { LinkTypes } from "@/app/types/links";
+import { SidebarLinkInfo } from "@/app/types/links";
 import { checkRole } from "@/utils/roles";
 import Link from "next/link";
 
-export default function SidebarWrapper({links}: LinkTypes){
+export default function SidebarWrapper({links}: SidebarLinkInfo){
     const { isMobile, state, toggleSidebar, isOpen } = useSidebar();
-    const groupedLinks = React.useMemo(() => groupLinksByCategory(links), [links]);
+    const groupedLinks = React.useMemo(() => (
+        groupLinksByCategory(links)
+    ), [links]);
     const [isAdmin, setIsAdmin] = useState(false);
 
     if(isMobile) {
@@ -62,16 +64,18 @@ export default function SidebarWrapper({links}: LinkTypes){
 
 
             <SidebarFooter>
-                {isAdmin && (
-                    <Button variant={"outline"} size={isOpen ? "sm": "icon"} justify={"center"}>
-                        <Link href="/admin">
-                            <div className="flex gap-1 items-center justify-center">
-                                <LayoutDashboard size={18} />
-                                {isOpen && <p>Admin Dashboard</p>}
-                            </div>
-                        </Link>
-                    </Button>
-                )}
+                    {isAdmin ? (
+                        <Button variant={"outline"} size={isOpen ? "sm": "icon"} justify={"center"}>
+                            <Link href="/admin">
+                                <div className="flex gap-1 items-center justify-center">
+                                    <LayoutDashboard size={18} />
+                                    {isOpen && <p>Admin Dashboard</p>}
+                                </div>
+                            </Link>
+                        </Button>
+                    ) : (
+                        <Button variant={"suspense"} size={isOpen ? "sm": "icon"} justify={"center"}/>
+                    )}
                 <LinkSubmissionPortal/>
             </SidebarFooter>
         </div>
