@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import SidebarWrapper from "./sidebar-wrapper";
 import { SidebarProvider } from "@/providers/sidebar-provider";
 import { SidebarLinkInfo } from "@/app/types/links";
+import { checkRole } from "@/utils/roles";
 
 export default async function Sidebar() {
     const supabase = await createClient();
@@ -11,16 +12,16 @@ export default async function Sidebar() {
         .order("category_id", {ascending: true})
         .overrideTypes<Array<{categories: {name: string}}>>();
 
-    console.log(links);
-
     if (error || !links) {
         console.error("Error fetching links:", error.message);
         return <div>Error fetching data</div>; // Or a loading indicator
     }
 
+    const isAdmin = await checkRole("admin");
+
     return(
         <SidebarProvider>
-            <SidebarWrapper links={links}/>
+            <SidebarWrapper isAdmin={isAdmin} links={links}/>
         </SidebarProvider>
     );
 }

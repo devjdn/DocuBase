@@ -10,30 +10,20 @@ import LinkSubmissionPortal from "../link-submission/submission-portal";
 import SearchBar from "../search/search-bar";
 import { Button } from "../ui/button";
 import { SidebarNavCategory } from "./sidebar-nav/nav-category";
-import React, { Suspense, useEffect, useState } from "react";
+import React from "react";
 import { categoryIcons, groupLinksByCategory } from "@/lib/docubase";
 import { SidebarLinkInfo } from "@/app/types/links";
-import { checkRole } from "@/utils/roles";
 import Link from "next/link";
 
-export default function SidebarWrapper({links}: SidebarLinkInfo){
+export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAdmin: boolean | null}){
     const { isMobile, state, toggleSidebar, isOpen } = useSidebar();
     const groupedLinks = React.useMemo(() => (
         groupLinksByCategory(links)
     ), [links]);
-    const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
     if(isMobile) {
         return <div></div>
     }
-
-    useEffect(() => {
-        async function checkIsAdmin() {
-            const isAdmin = await checkRole("admin");
-            setIsAdmin(isAdmin);
-        };
-        checkIsAdmin();
-    }, [isAdmin]);
 
     return(
         <div className={clsx(
@@ -65,7 +55,7 @@ export default function SidebarWrapper({links}: SidebarLinkInfo){
 
             <SidebarFooter>
                     {isAdmin === true ? (
-                        <Button variant={"outline"} size={isOpen ? "sm": "icon"} justify={"center"}>
+                        <Button asChild variant={"outline"} size={isOpen ? "sm": "icon"} justify={"center"}>
                             <Link href="/admin">
                                 <div className="flex gap-1 items-center justify-center">
                                     <LayoutDashboard size={18} />

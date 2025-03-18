@@ -1,9 +1,8 @@
-import { Geist, Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderWrapper from "@/components/header/header-wrapper";
 import { ClerkProvider } from "@clerk/nextjs";
-import localFont from "next/font/local";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -19,16 +18,6 @@ const geist = Geist({
   subsets: ["latin"],
   display: "swap"
 })
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap"
-});
-
-const switzer = localFont({
-  src: './fonts/Switzer-Variable.woff2',
-  display: 'swap'
-});
 
 export default function RootLayout({
   children,
