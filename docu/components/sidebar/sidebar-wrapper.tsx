@@ -21,7 +21,7 @@ export default function SidebarWrapper({links}: SidebarLinkInfo){
     const groupedLinks = React.useMemo(() => (
         groupLinksByCategory(links)
     ), [links]);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
     if(isMobile) {
         return <div></div>
@@ -64,7 +64,7 @@ export default function SidebarWrapper({links}: SidebarLinkInfo){
 
 
             <SidebarFooter>
-                    {isAdmin ? (
+                    {isAdmin === true ? (
                         <Button variant={"outline"} size={isOpen ? "sm": "icon"} justify={"center"}>
                             <Link href="/admin">
                                 <div className="flex gap-1 items-center justify-center">
@@ -73,9 +73,9 @@ export default function SidebarWrapper({links}: SidebarLinkInfo){
                                 </div>
                             </Link>
                         </Button>
-                    ) : (
+                    ) : isAdmin === null ? (
                         <Button variant={"suspense"} size={isOpen ? "sm": "icon"} justify={"center"}/>
-                    )}
+                    ) : null}
                 <LinkSubmissionPortal/>
             </SidebarFooter>
         </div>

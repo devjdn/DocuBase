@@ -4,6 +4,7 @@ import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
 import { SubmittedLinksArray, SingleLinkSubmission } from "../types/links";
+import StatCard from "@/components/admin/stat-card";
 // import { SubmissionTable, SubmissionTableBody, SubmissionTableColumn, SubmissionTableHeader, SubmissionTableRow } from "@/components/admin/submission-table";
 
 const columnKeysMap: Record<string, string> = {
@@ -44,11 +45,8 @@ export default async function AdminPage() {
                 <Heading1 className="mt-2" text="Admin Dashboard"/>
             </header>
     
-            <div className="grid grid-cols-4 gap-4">
-                <article className="bg-muted p-6 rounded-2xl">
-                    <p className="text-sm text-muted-foreground">Pending submissions</p>
-                    <Heading1 text={(pendingCount ?? 0).toString()}/>
-                </article>
+            <div className="flex flex-row gap-4">
+                <StatCard heading={"Pending submissions"} value={(pendingCount ?? 0).toString()}/>
             </div>
     
             </>
