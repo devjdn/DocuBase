@@ -8,6 +8,7 @@ import {
     UserButton
   } from '@clerk/nextjs';
 import { Button } from "../ui/button";
+import { ThemeSwitcher } from "../ui/theme-switcher";
 
 export default function HeaderWrapper() {
     return(
@@ -23,6 +24,7 @@ export default function HeaderWrapper() {
                         </Link>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-2">
+                        <ThemeSwitcher/>
                         <SignedOut>
                           <SignInButton mode="modal">
                             <Button size="default" variant={"default"}>Sign In</Button>

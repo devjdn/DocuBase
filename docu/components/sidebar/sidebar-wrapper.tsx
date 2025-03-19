@@ -27,7 +27,7 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
 
     return(
         <div className={clsx(
-            "sticky top-16 flex flex-col gap-4 grow bg-background styled-scrollbar border-border border-r h-full max-h-[calc(100svh_-_65px)] p-5",
+            "sticky top-16 flex flex-col gap-4 grow bg-background styled-scrollbar border-r border-border h-full max-h-[calc(100svh_-_65px)] p-5",
             {"auto": state === "closed"},
             {"w-68": state === "expanded"}
             )}

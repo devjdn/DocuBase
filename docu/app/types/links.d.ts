@@ -64,3 +64,11 @@ export interface SubmittedLinksArray {
         name: string;
     };
 }[];
+
+export interface SearchResults {
+    result: {
+        name: string;
+        url_slug: string;
+        category_name: string;
+    }[];
+};
