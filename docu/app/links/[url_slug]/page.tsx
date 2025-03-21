@@ -18,7 +18,7 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
 
 
         if (error || !data) {
-            console.error("Error fetching link data:", error);
+            console.error("Error fetching link data:", error, error.cause, error.message, error.stack);
             return <div>Error fetching data. Link not found.</div>;
         }
 

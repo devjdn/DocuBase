@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useSidebar } from "@/providers/sidebar-provider";
 import { Button } from "../ui/button";
 import { createClient } from "@supabase/supabase-js";
@@ -13,11 +13,14 @@ const client = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+const INPUT_FOCUS_SHORTCUT = "k";
+
 export default function SearchBar() {
     const { isOpen, toggleSidebar } = useSidebar();
     const [query, setQuery] = useState("");
     const [debouncedQuery, setDebouncedQuery] = useState(query);
     const [results, setResults] = useState<any[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -48,6 +51,22 @@ export default function SearchBar() {
         searchLinks();
     }, [debouncedQuery, client]);
 
+    useEffect(() => {
+        const handleInputFocus = (event: KeyboardEvent) => {
+            if (event.key === INPUT_FOCUS_SHORTCUT && (event.metaKey || event.ctrlKey)) {
+                event.preventDefault();
+                inputRef.current?.focus();
+            }
+        }
+
+        window.addEventListener("keydown", handleInputFocus);
+
+        return () => {
+            window.removeEventListener("keydown", handleInputFocus);
+        }
+
+    }, []);
+
     if (!isOpen) {
         return(
             <Button
@@ -73,7 +92,8 @@ export default function SearchBar() {
                 </div>
                 <input 
                     className="text-sm w-full flex-1 focus:ring-0 focus:outline-none" 
-                    type="text" 
+                    type="text"
+                    ref={inputRef}
                     placeholder="Search for a link"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -86,7 +106,7 @@ export default function SearchBar() {
             </form>
 
             {results.length > 0  && (
-                <div className="border border-border rounded-lg p-2 bg-background w-full absolute top-[38px] z-10">
+                <div className="border border-border rounded-lg p-2 bg-popover w-full absolute top-[38px] z-10">
                     <ol className="flex flex-col gap-2">
                         {results.map((result, resultIndex) => (
                            <Button key={resultIndex} asChild variant={"ghost"} size={"default"} justify={"default"}>

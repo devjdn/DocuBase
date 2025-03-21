@@ -13,20 +13,23 @@ import { useRouter } from "next/navigation";
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+);
 
 export default function LinkSubmissionForm() {
+    const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState<{id: number; name: string;}[]>([]);
     const [selectedCategory, setCategory] = useState<number | null>(null);
     const router = useRouter();
 
     useEffect(() => {
         async function fetchCategories() {
+            setIsLoading(true);
             const { data , error } = await supabase.from("categories").select("id, name");
             if (error) { 
                 console.error(error) 
             } else {
                 setCategories(data);
+                setIsLoading(false);
             };
         }
         fetchCategories();
@@ -71,18 +74,27 @@ export default function LinkSubmissionForm() {
             <div className="styled-scrollbar flex flex-col">
                 <Label htmlFor="linkCategory">Link category</Label>
                 <ul className="grid gap-2 grid-flow-col overflow-x-auto styled-scrollbar">
-                    {categories.map((category, index) => (
-                        <li key={index}>
-                            <Button
-                                type="button"
-                                variant={selectedCategory === category.id ? "default" : "secondary"}
-                                size={"default"}
-                                onClick={() => setCategory(category.id)}
-                            >
-                                {category.name}
-                            </Button>
-                        </li>
-                    ))}
+
+                    {isLoading ? (
+                        Array.from({length: 5}).map((_, index) => (
+                            <li key={index}>
+                                <Button variant={"suspense"} size={"default"} className="w-full"/>
+                            </li>
+                        ))
+                    ) : (
+                        categories.map((category, index) => (
+                            <li key={index}>
+                                <Button
+                                    type="button"
+                                    variant={selectedCategory === category.id ? "default" : "secondary"}
+                                    size={"default"}
+                                    onClick={() => setCategory(category.id)}
+                                >
+                                    {category.name}
+                                </Button>
+                            </li>
+                        ))
+                    )}
                 </ul>
             </div>
             <div className="flex flex-col">

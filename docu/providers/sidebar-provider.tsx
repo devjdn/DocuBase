@@ -55,8 +55,7 @@ export const SidebarProvider = ({children}: {children: React.ReactNode}) => {
 
     const toggleSidebar = React.useCallback(() => {
         return isMobile ? 
-        setIsOpenMobile((prev) => !prev) : 
-        setIsOpen((prev) => !prev)
+        setIsOpenMobile((prev) => !prev) : setIsOpen((prev) => !prev)
     }, [isMobile, setIsOpen, setIsOpenMobile])
 
     React.useEffect(() => {

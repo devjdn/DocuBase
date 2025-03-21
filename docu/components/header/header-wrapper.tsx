@@ -25,6 +25,7 @@ export default function HeaderWrapper() {
                     </div>
                     <div className="flex flex-row items-center justify-center gap-2">
                         <ThemeSwitcher/>
+                        <GithubStar/>
                         <SignedOut>
                           <SignInButton mode="modal">
                             <Button size="default" variant={"default"}>Sign In</Button>
@@ -33,7 +34,6 @@ export default function HeaderWrapper() {
                         <SignedIn>
                           <UserButton />
                         </SignedIn>
-                        <GithubStar/>
                     </div>
                 </div>
             </nav>

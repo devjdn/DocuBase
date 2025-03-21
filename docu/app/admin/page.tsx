@@ -1,11 +1,14 @@
 import WindowBtn from "@/components/buttons/window-btn";
-import { Heading1, Heading3 } from "@/components/typography/headings";
+import { Heading1, Heading2} from "@/components/typography/headings";
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
-import { SubmittedLinksArray, SingleLinkSubmission } from "../types/links";
 import StatCard from "@/components/admin/stat-card";
-// import { SubmissionTable, SubmissionTableBody, SubmissionTableColumn, SubmissionTableHeader, SubmissionTableRow } from "@/components/admin/submission-table";
+import { SubmissionsList, SubmissionsListItem, SubmissionsListItemHeader } from "@/components/admin/review/submissions-list";
+import { SubmissionsReview } from "@/components/admin/review/submissions-review";
+import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SubmittedLinksArray } from "../types/links";
 
 const columnKeysMap: Record<string, string> = {
     name: "Name",
@@ -23,36 +26,32 @@ export default async function AdminPage() {
         redirect("/links");
     }
 
-    // let submissions: SubmittedLinksArray;
     // Remember that I have to await this function as it returns a promise, not an actual result
     const client = await createClerkSupabaseClientSsr();
 
-    try {
-        const { data: submissions, error } = await client.from("submissions")
-            .select("name, url, description, approval_status, created_at, user_id, categories (name)")
+    const { data: submissions, error } = await client.from("submissions")
+            .select("name, url, url_slug, description, approval_status, created_at, user_id, categories (name)")
             .order("created_at", { ascending: false })
-            .overrideTypes<Array<{categories: {name: string}}>>();
+            .overrideTypes<Array<SubmittedLinksArray>>();
 
-        console.log(submissions);
+    console.log(submissions);
+    const pendingSubmissions = submissions?.filter((submissions) => submissions.approval_status === "Pending");
 
-        const pendingCount = submissions?.filter((submissions) => submissions.approval_status === "Pending").length;
+    return(
+        <>
 
-        return(
-            <>
-    
-            <header className="block w-full border-b border-b-border">
-                <WindowBtn/>
-                <Heading1 className="mt-2" text="Admin Dashboard"/>
-            </header>
-    
+        <header className="block w-full border-b border-b-border">
+            <WindowBtn/>
+            <Heading1 className="mt-2" text="Admin Dashboard"/>
+        </header>
+
+        <section className="flex flex-col gap-4">
+            <Heading2 text={"Submission Review"}/>
+
             <div className="flex flex-row gap-4">
-                <StatCard heading={"Pending submissions"} value={(pendingCount ?? 0).toString()}/>
+                <StatCard heading={"Pending submissions"} value={(pendingSubmissions?.length ?? 0).toString()}/>
             </div>
-    
-            </>
-        );
-    } catch (error) {
-        console.error("An error has occurred: ", error);
-        console.log("An error has occurred: ", error);
-    }
+        </section>
+        </>
+    );
 }

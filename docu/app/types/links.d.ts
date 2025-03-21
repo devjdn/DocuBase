@@ -51,11 +51,9 @@ export interface SingleLinkSubmission {
 };
 
 export interface SubmittedLinksArray {
-    id?: number;
     name: string;
     url: string;
     description: string;
-    category_id?: number;
     url_slug?: string;
     approval_status: string;
     created_at?: string;
@@ -63,7 +61,7 @@ export interface SubmittedLinksArray {
     categories?: {
         name: string;
     };
-}[];
+};
 
 export interface SearchResults {
     result: {

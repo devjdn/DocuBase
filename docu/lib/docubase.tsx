@@ -31,6 +31,21 @@ export const categoryIcons: Record<string, React.ReactNode> = {
     'Other': <Layers className="stroke-muted-foreground" size={20}/>,
 }
 
+export const categoryColours: Record<string, string> = {
+    'Frameworks': 'frameworks',
+    'Libraries': 'libraries',
+    'Databases': 'databases',
+    'Authentication': 'authentication',
+    'UI': 'ui',
+    'DevOps': 'devops',
+    'Hosting & Deployment': 'hosting',
+    'Testing':  'testing',
+    'AI & Machine Learning': 'ai',
+    'CMS': 'cms',
+    'CLI Tools': 'cli',
+    'Other': 'other',
+}
+
 export const groupLinksByCategory = (links: SidebarLinkInfo['links']) => {
     // The reduce method is used to accumulate a result
     // In this case, it is an object

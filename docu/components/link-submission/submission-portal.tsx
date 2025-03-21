@@ -71,7 +71,7 @@ export default function LinkSubmissionPortal() {
                 {isOpen && <p>Submit a link</p>}
             </Button>
             {mounted && createPortal(
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95" data-state={isOpen ?  "open" : "closed"}>
                     <div className="rounded-xl bg-card p-8 shadow-lg border border-input text-card-foreground  w-full max-w-md" ref={menuRef}>
                         <header className="flex flex-row justify-between items-center gap-4 mb-6">
                             <div className="flex h-fit">

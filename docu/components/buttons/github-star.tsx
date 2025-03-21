@@ -3,10 +3,9 @@ import { Button } from "../ui/button";
 
 export default function GithubStar() {
     return(
-        <Button asChild size="default" variant="default" justify="center" className="gap-2">
-            <a className="flex flex-row gap-2" target="_blank" href="https://github.com/jayden-prime/DocuBase">
+        <Button asChild size="icon" variant="ghost" justify="center">
+            <a target="_blank" href="https://github.com/devjdn/DocuBase">
                 <Github size={18}/>
-                <p>Star</p>
             </a>
         </Button>
     );
