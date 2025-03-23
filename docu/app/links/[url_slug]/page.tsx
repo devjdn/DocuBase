@@ -8,6 +8,7 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
     try {
         const { url_slug } = await params;
 
+        console.time("fetching link");
         const supabase = await createClient();
         const { data, error } = await supabase
             .from("links")
@@ -16,6 +17,7 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
             .single()
             .overrideTypes<SingleLink>();
 
+        console.timeEnd("fetching link");
 
         if (error || !data) {
             console.error("Error fetching link data:", error, error.cause, error.message, error.stack);
