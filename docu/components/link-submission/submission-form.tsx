@@ -35,6 +35,14 @@ export default function LinkSubmissionForm() {
         fetchCategories();
     }, []);
 
+    const handleCategoryClick = (categoryId: number) => {
+        setCategory(categoryId)
+
+        if(selectedCategory === categoryId) {
+            setCategory(null);
+        }
+    }
+
     async function handleSubmit(formData: FormData) {
         if(!selectedCategory) {
             console.log("Select a category");
@@ -88,7 +96,7 @@ export default function LinkSubmissionForm() {
                                     type="button"
                                     variant={selectedCategory === category.id ? "default" : "secondary"}
                                     size={"default"}
-                                    onClick={() => setCategory(category.id)}
+                                    onClick={() => handleCategoryClick(category.id)}
                                 >
                                     {category.name}
                                 </Button>
@@ -99,7 +107,7 @@ export default function LinkSubmissionForm() {
             </div>
             <div className="flex flex-col">
                 <Label htmlFor="linkDescription">Link description</Label>
-                <textarea name="linkDescription" placeholder="Link description" className="field-sizing-content flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+                <textarea name="linkDescription" placeholder="Link description" rows={2} className="field-sizing-content flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
             </div>
             <SubmitButton className="mx-auto cursor-pointer">
                 Submit

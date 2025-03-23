@@ -1,23 +1,23 @@
 import { SingleLink } from "@/app/types/links";
+import ControlBar from "@/components/docs-pages/control-bar";
 import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
 import { createClient } from "@/utils/supabase/server";
+import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
         const { url_slug } = await params;
 
-        console.time("fetching link");
         const supabase = await createClient();
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from("links")
             .select("id, name, url, description, created_at, categories(name)")
             .eq("url_slug", url_slug)
             .single()
             .overrideTypes<SingleLink>();
 
-        console.timeEnd("fetching link");
 
         if (error || !data) {
             console.error("Error fetching link data:", error, error.cause, error.message, error.stack);
@@ -29,6 +29,7 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
                 <section>
                     <DocHeader category={data.categories.name} name={data.name} />
                     <DocDetails url={data.url} description={data.description} created_at={data.created_at} />
+                    <ControlBar url={data.url}/>
                 </section>
             </Suspense>
         );

@@ -8,9 +8,9 @@ export default function SidebarLinkContent({url_slug, name, url}: {url_slug: str
 
     return(
         <div className={clsx(
-            "flex flex-row items-center justify-between group text-sm *:px-3 *:py-2 rounded-md transition-colors",
+            "flex flex-row items-center justify-between group text-sm *:px-3 *:py-2 rounded-lg transition-all",
             {"text-muted-foreground hover:text-primary": !pathname.match(url_slug)},
-            {"text-link-foreground bg-link": pathname.match(url_slug)}
+            {"text-link-foreground bg-link shadow-inner shadow-brand/20": pathname.match(url_slug)}
         )}>
             <Link
             href={`/links/${url_slug}`}

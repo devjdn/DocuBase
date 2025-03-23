@@ -79,7 +79,7 @@ export default function SearchBar() {
     return(
         <div className="relative">
             <form 
-            className="border border-input bg-background h-9 px-2 flex items-center gap-2 rounded-md ring-offset-background has-placeholder:text-muted-foreground has-focus-visible:outline-hidden has-focus-visible:ring-1 has-focus-visible:ring-brand has-focus-visible:ring-offset-2" 
+            className="border border-border bg-background h-9 px-2 flex items-center gap-2 rounded-lg ring-offset-background has-placeholder:text-muted-foreground has-focus-visible:outline-hidden has-focus-visible:ring-1 has-focus-visible:ring-brand has-focus-visible:ring-offset-2" 
             onSubmit={((e: FormEvent) => e.preventDefault())}
             >
                 <div>
@@ -101,10 +101,10 @@ export default function SearchBar() {
             </form>
 
             {results.length > 0  && (
-                <div className="border border-border rounded-lg p-2 bg-popover w-full absolute top-[38px] z-10">
+                <div className="border border-border rounded-lg p-2 bg-popover w-full absolute top-[42px] z-10">
                     <ol className="flex flex-col gap-2">
                         {results.map((result, resultIndex) => (
-                           <Button key={resultIndex} asChild variant={"ghost"} size={"default"} justify={"default"}>
+                           <Button key={resultIndex} asChild variant={"ghost"} size={"default"} >
                                 <Link className="flex gap-2" href={`/links/${result.url_slug}`}>
                                     {categoryIcons[result.category_name]}
                                     <div className="flex flex-col">
