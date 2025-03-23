@@ -4,14 +4,9 @@ import { Search, X } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useSidebar } from "@/providers/sidebar-provider";
 import { Button } from "../ui/button";
-import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
 import { categoryIcons } from "@/lib/docubase";
-
-const client = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import supabaseClient from "@/utils/supabaseClient";
 
 const INPUT_FOCUS_SHORTCUT = "k";
 
@@ -37,7 +32,7 @@ export default function SearchBar() {
                 return;
             }
 
-            const {data: result, error} = await client
+            const {data: result, error} = await supabaseClient
                 .rpc('search_links_by_name_prefix', {prefix: debouncedQuery});
             
 
@@ -49,7 +44,7 @@ export default function SearchBar() {
         }
 
         searchLinks();
-    }, [debouncedQuery, client]);
+    }, [debouncedQuery, supabaseClient]);
 
     useEffect(() => {
         const handleInputFocus = (event: KeyboardEvent) => {
