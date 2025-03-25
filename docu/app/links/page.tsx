@@ -2,7 +2,7 @@ import { Heading1, Heading2 } from "@/components/typography/headings"
 
 export default function DocumentationPage(){
     return(
-        <section className="flex flex-col gap-10">
+        <section className="flex flex-col gap-10 max-w-prose">
             <div className="py-2 px-3 border border-warning-foreground rounded-md bg-warning text-warning-foreground">
                 <p>
                     Documentation pages are unstable on mobile. This will be fixed in the future. For now, please stick to desktop usage of DocuBase.

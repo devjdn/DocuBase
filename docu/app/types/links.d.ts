@@ -51,16 +51,18 @@ export interface SingleLinkSubmission {
 };
 
 export interface SubmittedLinksArray {
-    name: string;
-    url: string;
-    description: string;
-    url_slug?: string;
-    approval_status: string;
-    created_at?: string;
-    user_id?: string;
-    categories?: {
-        name: string;
-    };
+    submissions: {
+        name?: string;
+        url?: string;
+        description?: string;
+        url_slug?: string;
+        approval_status?: string;
+        created_at?: string;
+        user_id?: string;
+        categories?: {
+            name?: string;
+        };
+    }[];
 };
 
 export interface SearchResults {

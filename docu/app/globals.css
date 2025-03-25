@@ -71,6 +71,25 @@
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-slide-in: slide-in 0.2s ease-out forwards;
+  --animate-slide-out: slide-out 0.2s ease-out forwards;
+
+  @keyframes slide-in {
+    from {
+      transform: translateX(-272px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-out {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-272px);
+    }
+  }
 
   @keyframes accordion-down {
     from {

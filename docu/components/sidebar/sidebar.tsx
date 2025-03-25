@@ -1,5 +1,4 @@
 import SidebarWrapper from "./sidebar-wrapper";
-import { SidebarProvider } from "@/providers/sidebar-provider";
 import { checkRole } from "@/utils/roles";
 import supabaseClient from "@/utils/supabaseClient";
 
@@ -25,8 +24,6 @@ export default async function Sidebar() {
     // console.timeEnd("Check Role");
 
     return(
-        <SidebarProvider>
-            <SidebarWrapper isAdmin={isAdmin} links={links}/>
-        </SidebarProvider>
+        <SidebarWrapper isAdmin={isAdmin} links={links}/>
     );
 }

@@ -8,7 +8,8 @@ import { SubmissionsList, SubmissionsListItem, SubmissionsListItemHeader } from 
 import { SubmissionsReview } from "@/components/admin/review/submissions-review";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SubmittedLinksArray } from "../types/links";
+import { SingleLinkSubmission, SubmittedLinksArray } from "../types/links";
+import { Suspense } from "react";
 
 const columnKeysMap: Record<string, string> = {
     name: "Name",
@@ -32,9 +33,10 @@ export default async function AdminPage() {
     const { data: submissions, error } = await client.from("submissions")
             .select("name, url, url_slug, description, approval_status, created_at, user_id, categories (name)")
             .order("created_at", { ascending: false })
-            .overrideTypes<Array<SubmittedLinksArray>>();
+            .overrideTypes<Array<{categories: {name: string}}>>();
 
     console.log(submissions);
+
     const pendingSubmissions = submissions?.filter((submissions) => submissions.approval_status === "Pending");
 
     return(
@@ -48,9 +50,15 @@ export default async function AdminPage() {
         <section className="flex flex-col gap-4">
             <Heading2 text={"Submission Review"}/>
 
-            <div className="flex flex-row gap-4">
-                <StatCard heading={"Pending submissions"} value={(pendingSubmissions?.length ?? 0).toString()}/>
-            </div>
+            <Suspense fallback="Loading pending submissions">
+                <div className="flex flex-row gap-4">
+                    <StatCard heading={"Pending submissions"} value={(pendingSubmissions?.length ?? 0).toString()}/>
+                </div>
+            </Suspense>
+
+            <Suspense fallback="Loading submissions">
+                <SubmissionsReview submissions={pendingSubmissions}/>
+            </Suspense>
         </section>
         </>
     );

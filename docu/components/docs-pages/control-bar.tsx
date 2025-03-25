@@ -20,61 +20,58 @@ export default function ControlBar({url}: {url: string;}) {
     }
 
     return(
-        <div className="py-4">
-            <p className="mb-2">Link controls</p>
+        <div className="flex flex-row items-center justify-between w-fit gap-4 py-1 my-4">
+            <Button
+                variant={"ghost"}
+                size={"icon"}
+                justify={"center"}
+                aria-label="Copy link"
+                onClick={() => copyToClipboard(url)}
+            >
+                {copyState === 'success' ? (
+                    <ClipboardCheck size={18}/> 
+                ) : copyState === 'error' ? (
+                    <ClipboardX size={18}/>
+                ) : (
+                    <Clipboard size={18}/>
+                )}
+            </Button>
 
-            <div className="flex flex-row gap-6">
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    justify={"center"}
-                    aria-label="Copy link"
-                    onClick={() => copyToClipboard(url)}
-                >
-                    {copyState === 'success' ? (
-                        <ClipboardCheck size={18}/> 
-                    ) : copyState === 'error' ? (
-                        <ClipboardX size={18}/>
-                    ) : (
-                        <Clipboard size={18}/>
-                    )}
-                </Button>
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    justify={"center"}
-                    aria-label="Submit edit request"
-                >
-                    <Pencil className="group-hover:stroke-brand" size={18}/>
-                </Button>
+            <Button
+                variant={"ghost"}
+                size={"icon"}
+                justify={"center"}
+                aria-label="Favourite link"
+            >
+                <Heart className="group-hover:stroke-pink-800" size={18}/>
+            </Button>
 
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    justify={"center"}
-                    aria-label="Submit delete request"
-                >
-                    <Trash2 className="group-hover:stroke-destructive" size={18}/>
-                </Button>
+            <Button
+                variant={"ghost"}
+                size={"icon"}
+                justify={"center"}
+                aria-label="Submit edit request"
+            >
+                <Pencil className="group-hover:stroke-brand" size={18}/>
+            </Button>
 
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    justify={"center"}
-                    aria-label="Favourite link"
-                >
-                    <Heart className="group-hover:stroke-pink-800" size={18}/>
-                </Button>
+            <Button
+                variant={"ghost"}
+                size={"icon"}
+                justify={"center"}
+                aria-label="Submit delete request"
+            >
+                <Trash2 className="group-hover:stroke-destructive" size={18}/>
+            </Button>
 
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}
-                    justify={"center"}
-                    aria-label="Submit a deprecation request"
-                >
-                    <Flag className="group-hover:stroke-warning-foreground" size={18}/>
-                </Button>
-            </div>
+            <Button
+                variant={"ghost"}
+                size={"icon"}
+                justify={"center"}
+                aria-label="Submit a deprecation request"
+            >
+                <Flag className="group-hover:stroke-warning-foreground" size={18}/>
+            </Button>
         </div>
     );
 }

@@ -1,15 +1,33 @@
+"use client";
+
 import { SubmittedLinksArray } from "@/app/types/links";
 import { Button } from "@/components/ui/button";
+import { useSubmissions } from "@/providers/submissions-content-provider";
 import { useState } from "react";
 
 interface SubmissionsListProps {
     children: React.ReactNode;
 }
 
-function SubmissionsList({children}: SubmissionsListProps) {
+function SubmissionsList({submissions}: {submissions?: {
+    name: any;
+    url: any;
+    description: any;
+    approval_status: any;
+    created_at: any;
+    user_id: any;
+    categories: {
+        name: string;
+    };
+    url_slug: any;
+}[]}) {
+    const {isOpen, setIsOpen, toggleContent, state} = useSubmissions();
+
     return(
         <ul className="grid auto-rows-auto">
-            {children}
+            {submissions && submissions.map((submission, submissionIndex) => (
+                <div></div>
+            ))}
         </ul>
     );
 }
