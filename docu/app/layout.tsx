@@ -39,7 +39,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
               <HeaderWrapper/>
-              <main className="w-full flex flex-col grow min-h-[calc(100svh-65px)]">
+              <main className="w-full flex flex-col grow min-h-[calc(100svh-61px)]">
                   {children}
               </main>
           </ThemeProvider>

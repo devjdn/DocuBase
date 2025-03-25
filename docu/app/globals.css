@@ -147,7 +147,7 @@
 @layer base {
   :root {
     --brand: 152 56.3% 46.7%;
-    --background: 0 0% 98%;
+    --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --link-active: 152 56.3% 88%;
     --link-active-foreground: 152 56.3% 46.7%;
@@ -167,7 +167,7 @@
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 0 0% 92.8%;
     --input: 0 0% 93.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;

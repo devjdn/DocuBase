@@ -4,10 +4,7 @@ import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
 import StatCard from "@/components/admin/stat-card";
-import { SubmissionsList, SubmissionsListItem, SubmissionsListItemHeader } from "@/components/admin/review/submissions-list";
 import { SubmissionsReview } from "@/components/admin/review/submissions-review";
-import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { SingleLinkSubmission, SubmittedLinksArray } from "../types/links";
 import { Suspense } from "react";
 

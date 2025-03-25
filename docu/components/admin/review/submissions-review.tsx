@@ -1,4 +1,3 @@
-import { SubmittedLinksArray } from "@/app/types/links";
 import { SubmissionsContentProvider } from "@/providers/submissions-content-provider";
 import { SubmissionsList } from "./submissions-list";
 
