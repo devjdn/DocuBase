@@ -1,6 +1,5 @@
 import * as React from "react";
 import { CategoryProps } from "@/app/types/sidebar";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useSidebar } from "@/providers/sidebar-provider";
 import SidebarLinkContent from "./link-content";

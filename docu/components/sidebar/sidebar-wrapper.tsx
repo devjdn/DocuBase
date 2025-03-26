@@ -14,6 +14,7 @@ import React from "react";
 import { categoryIcons, groupLinksByCategory } from "@/lib/docubase";
 import { SidebarLinkInfo } from "@/app/types/links";
 import Link from "next/link";
+import { MobileSidebarNavCategory } from "./mobile/nav-category";
 
 export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAdmin: boolean | null}){
     const { isMobile, state, toggleSidebar, isOpen, isOpenMobile } = useSidebar();
@@ -46,7 +47,7 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
 
                 <SidebarNav>
                     {Object.entries(groupedLinks).map(([category, links], index) => (
-                        <SidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>               
+                        <MobileSidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>               
                     ))}
                 </SidebarNav>
 

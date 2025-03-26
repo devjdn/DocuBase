@@ -4,9 +4,8 @@ import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
 import StatCard from "@/components/admin/stat-card";
-import { SubmissionsReview } from "@/components/admin/review/submissions-review";
-import { SingleLinkSubmission, SubmittedLinksArray } from "../types/links";
 import { Suspense } from "react";
+import { SubmissionsList } from "@/components/admin/review/submissions-list";
 
 const columnKeysMap: Record<string, string> = {
     name: "Name",
@@ -54,7 +53,7 @@ export default async function AdminPage() {
             </Suspense>
 
             <Suspense fallback="Loading submissions">
-                <SubmissionsReview submissions={pendingSubmissions}/>
+                <SubmissionsList submissions={pendingSubmissions}/>
             </Suspense>
         </section>
         </>

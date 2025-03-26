@@ -9,6 +9,7 @@ import {
   } from '@clerk/nextjs';
 import { Button } from "../ui/button";
 import { ThemeSwitcher } from "../ui/theme-switcher";
+import FontBtn from "../buttons/font-btn";
 
 export default function HeaderWrapper() {
     return(
@@ -24,6 +25,7 @@ export default function HeaderWrapper() {
                         </Link>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-2">
+                        <FontBtn/>
                         <ThemeSwitcher/>
                         <GithubStar/>
                         <SignedOut>

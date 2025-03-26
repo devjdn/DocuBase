@@ -52,7 +52,6 @@ export const SidebarProvider = ({children}: {children: React.ReactNode}) => {
     const [isOpen, setIsOpen] = React.useState(true);
     const [isOpenMobile, setIsOpenMobile] = React.useState(false);
 
-
     const toggleSidebar = React.useCallback(() => {
         return isMobile ? 
         setIsOpenMobile((prev) => !prev) : setIsOpen((prev) => !prev);
@@ -68,10 +67,16 @@ export const SidebarProvider = ({children}: {children: React.ReactNode}) => {
             toggleSidebar()
           }
         }
+
+        if (isOpenMobile) {
+          document.body.classList.add('overflow-y-hidden');
+        } else if (!isOpenMobile ) {
+          document.body.classList.remove('overflow-y-hidden');
+        }
   
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [toggleSidebar])
+    }, [toggleSidebar, isOpenMobile])
 
     const state = isOpen ? "expanded" : "closed";
 
