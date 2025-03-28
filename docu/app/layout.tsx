@@ -1,4 +1,4 @@
-import { Geist, PT_Serif } from 'next/font/google';
+import { Geist, Libre_Baskerville, PT_Serif, Playfair_Display } from 'next/font/google';
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import HeaderWrapper from "@/components/header/header-wrapper";
@@ -23,11 +23,18 @@ export const geist = Geist({
     display: 'swap',
 });
 
-export const ptSerif = PT_Serif({
+export const playfairDisplay = Playfair_Display({
     weight: ['400'],
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-pt-serif',
+    variable: '--font-playfair-display',
+});
+
+export const libreBaskerville = Libre_Baskerville({
+    subsets: ['latin'],
+    weight: ['400'],
+    variable: '--font-libre-baskerville',
+    display: 'swap',
 });
 
 export const openDyslexic = localFont({
@@ -49,7 +56,7 @@ export default async function RootLayout({
 
   const fontClass = {
     geist: geist.className,
-    ptSerif: ptSerif.className,
+    libreBaskerville: libreBaskerville.className,
     openDyslexic: openDyslexic.className,
   }[initialFont] || geist.className;
 
@@ -71,7 +78,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
                 <HeaderWrapper/>
-                <main className="w-full flex flex-col grow min-h-[calc(100svh-61px)]">
+                <main className="w-full flex flex-col grow min-h-[calc(100svh-56px)]">
                     {children}
                 </main>
             </ThemeProvider>

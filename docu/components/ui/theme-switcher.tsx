@@ -8,7 +8,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Laptop, Moon, Sun } from "lucide-react";
+import { Laptop, MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -28,7 +28,22 @@ const ThemeSwitcher = () => {
   const ICON_SIZE = 16;
 
   return (
-    <DropdownMenu>
+    <div className="flex flex-row gap-2">
+        <Button variant={theme === "dark" ? "default" : "ghost"} size={"icon"} justify={"center"} onClick={() => setTheme("dark")}>
+            <MoonStar size={18}/>
+        </Button>
+        <Button variant={theme === "light" ? "default" : "ghost"} size={"icon"} justify={"center"} onClick={() => setTheme("light")}>
+          	<Sun size={18}/>
+        </Button>
+        <Button variant={theme === "system" ? "default" : "ghost"} size={"icon"} justify={"center"} onClick={() => setTheme("system")}>
+          	<Laptop size={18}/>
+        </Button>
+    </div>
+    
+  );
+};
+
+{/*<DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size={"icon"} justify={"center"}>
           {theme === "light" ? (
@@ -68,8 +83,6 @@ const ThemeSwitcher = () => {
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
+    </DropdownMenu>*/}
 
 export { ThemeSwitcher };

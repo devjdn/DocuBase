@@ -3,6 +3,7 @@
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { auth } from '@clerk/nextjs/server'
 import { SingleLinkSubmission } from "./types/links";
+import { checkRole } from "@/utils/roles";
 
 export async function submitLink(link: SingleLinkSubmission) {
     const client = await createClerkSupabaseClientSsr();
@@ -27,4 +28,19 @@ export async function submitLink(link: SingleLinkSubmission) {
         console.error("Error inserting data:", error);
     }
 
+}
+
+export async function markAsDeprecated(name: string) {
+    const client = await createClerkSupabaseClientSsr();
+
+    try{
+        const isAdmin = await checkRole("admin");
+
+        if (isAdmin) {
+            const { data, error } = await client.from("links").update({ is_deprecated: true }).eq("name", name);
+            console.log("Success:", data, error?.code, error?.details, error?.name, error?.message, error?.stack);
+        }
+    } catch (error: any) {
+        console.error("Error updating data:", error);
+    }
 }

@@ -3,9 +3,15 @@
 import { Clipboard, ClipboardCheck, ClipboardX, Flag, Heart, Pencil, Trash2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import clsx from "clsx";
+import { markAsDeprecated } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
-export default function ControlBar({url}: {url: string;}) {
+export default function ControlBar({url, name, is_deprecated}: {url: string; name: string; is_deprecated: boolean;}) {
     const [copyState, setCopyState] = useState<'idle' | 'success' | 'error'>('idle');
+    const router = useRouter();
+
+    console.log(url, name, is_deprecated)
 
     const copyToClipboard = async (url: string) => {
         try {
@@ -20,7 +26,7 @@ export default function ControlBar({url}: {url: string;}) {
     }
 
     return(
-        <div className="flex flex-row items-center justify-between w-fit gap-4 py-1 my-4">
+        <div className="bg-secondary border border-border rounded-xl flex flex-row items-center justify-between w-fit gap-4 p-1 my-4">
             <Button
                 variant={"ghost"}
                 size={"icon"}
@@ -69,8 +75,15 @@ export default function ControlBar({url}: {url: string;}) {
                 size={"icon"}
                 justify={"center"}
                 aria-label="Submit a deprecation request"
+                onClick={() => {
+                    markAsDeprecated(name);
+                    router.refresh();
+                }}
             >
-                <Flag className="group-hover:stroke-warning-foreground" size={18}/>
+                <Flag className={clsx(
+                    "group-hover:stroke-warning-foreground",
+                    {"stroke-warning-foreground": is_deprecated}
+                )} size={18}/>
             </Button>
         </div>
     );

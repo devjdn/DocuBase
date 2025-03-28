@@ -1,6 +1,6 @@
 import Timestamp from "../typography/timestamp";
 
-export default function DocDetails({url, description, created_at}: {url: string; description: string; created_at: string;}) {
+export default function DocDetails({url, description, created_at, is_deprecated}: {url: string; description: string; created_at: string; is_deprecated: boolean}) {
     return(
         <div className="flex flex-col gap-2">
             <a href={url} target="_blank" className="mb-2 text-link-foreground hover:underline">{url}</a>

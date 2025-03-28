@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from 'react';
-import { Geist, PT_Serif } from 'next/font/google';
+import { Geist, Playfair_Display, Libre_Baskerville } from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const geist = Geist({
@@ -10,11 +10,18 @@ export const geist = Geist({
     display: 'swap',
 });
 
-export const ptSerif = PT_Serif({
+export const libreBaskerville = Libre_Baskerville({
+    subsets: ['latin'],
+    weight: ['400'],
+    variable: '--font-libre-baskerville',
+    display: 'swap',
+});
+
+export const playfairDisplay = Playfair_Display({
     weight: ['400'],
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-pt-serif',
+    variable: '--font-playfair-display',
 });
 
 export const openDyslexic = localFont({
@@ -25,7 +32,7 @@ export const openDyslexic = localFont({
 
 const FONTS = {
     geist: geist.className,
-    ptSerif: ptSerif.className,
+    libreBaskerville: libreBaskerville.className,
     openDyslexic: openDyslexic.className,
 } as const;
 

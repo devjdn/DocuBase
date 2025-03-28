@@ -39,7 +39,6 @@ export default async function AdminPage() {
         <>
 
         <header className="block w-full border-b border-b-border">
-            <WindowBtn/>
             <Heading1 className="mt-2" text="Admin Dashboard"/>
         </header>
 
