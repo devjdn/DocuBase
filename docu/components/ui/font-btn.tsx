@@ -1,6 +1,6 @@
 "use client";
 
-import { geist, libreBaskerville, openDyslexic, playfairDisplay, useFont } from "@/providers/font-provider";
+import { geist, libreBaskerville, openDyslexic, useFont } from "@/providers/font-provider";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 

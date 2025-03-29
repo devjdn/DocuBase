@@ -17,27 +17,20 @@ export const metadata = {
   description: "DocuBase provides a simple and intuitive way to access developer documentation.",
 };
 
-export const geist = Geist({
+const geist = Geist({
     subsets: ['latin'],
     variable: '--font-geist',
     display: 'swap',
 });
 
-export const playfairDisplay = Playfair_Display({
-    weight: ['400'],
-    subsets: ['latin'],
-    display: 'swap',
-    variable: '--font-playfair-display',
-});
-
-export const libreBaskerville = Libre_Baskerville({
+const libreBaskerville = Libre_Baskerville({
     subsets: ['latin'],
     weight: ['400'],
     variable: '--font-libre-baskerville',
     display: 'swap',
 });
 
-export const openDyslexic = localFont({
+const openDyslexic = localFont({
     src: '../public/fonts/OpenDyslexic-Regular.woff2',
     display: 'swap',
     variable: '--font-open-dyslexic',
