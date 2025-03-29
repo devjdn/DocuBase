@@ -18,6 +18,7 @@ const columnKeysMap: Record<string, string> = {
 };
 
 export default async function AdminPage() {
+
     const isAdmin = await checkRole("admin");
     if(!isAdmin) {
         redirect("/links");

@@ -25,7 +25,7 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
     if (isMobile) {
         return(
             <div className={clsx(
-                "absolute top-0 z-60 flex flex-col gap-4 grow bg-sidebar/50 backdrop-blur-lg styled-scrollbar border-r border-border h-full max-h-[calc(100svh_-_56px)] p-5 w-68",
+                "absolute top-0 z-60 flex flex-col gap-4 grow bg-sidebar/50 backdrop-blur-lg styled-scrollbar border-r border-border h-full p-5 w-68",
                 {"animate-slide-out": !isOpenMobile},
                 {"animate-slide-in shadow-2xl shadow-brand/50": isOpenMobile}
             )}
@@ -73,7 +73,7 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
     
     return(
         <div className={clsx(
-            "hidden md:flex flex-col gap-4 grow bg-sidebar styled-scrollbar border-r border-r-border h-full max-h-[calc(100vh_-_56px)] p-3",
+            "hidden md:flex flex-col grow styled-scrollbar max-h-screen h-full",
             {"w-auto": state === "closed"},
             {"w-64": state === "expanded"}
             )}

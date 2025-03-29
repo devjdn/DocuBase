@@ -66,7 +66,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <FontProvider initialFont={initialFont}>
         <html lang="en" className={fontClass} suppressHydrationWarning>
-          <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
+          <body className="bg-sidebar overflow-x-hidden text-foreground tracking-normal">
             {/* <script
                 crossOrigin="anonymous"
                 src="//unpkg.com/react-scan/dist/auto.global.js"
@@ -77,8 +77,8 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-                <HeaderWrapper/>
-                <main className="w-full flex flex-col grow min-h-[calc(100svh-56px)]">
+                {/* <HeaderWrapper/> */}
+                <main className="w-full">
                     {children}
                 </main>
             </ThemeProvider>

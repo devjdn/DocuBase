@@ -6,10 +6,10 @@ import LinksLayoutHeader from "@/components/docs-pages/layout-header";
 export default function DocumentationLayout({children}: {children: React.ReactNode}) {
     return(
         <SidebarProvider>
-            <div className="w-full flex flex-col md:grid md:grid-cols-[auto_1fr] grow relative">
+            <div className="w-full flex flex-col md:grid md:grid-cols-[auto_1fr] min-h-screen relative">
                 <Sidebar/>
 
-                <main className="grow p-6 md:p-10 md:rounded-tl-rounded">
+                <main className="flex flex-col gap-6 grow py-3 px-6 md:px-10 md:rounded-t-lg md:border-l bg-background">
                     <LinksLayoutHeader/>
                     {children}
                 </main>
