@@ -9,7 +9,7 @@ export default function DocumentationLayout({children}: {children: React.ReactNo
             <div className="w-full flex flex-col md:grid md:grid-cols-[auto_1fr] min-h-screen relative">
                 <Sidebar/>
 
-                <main className="flex flex-col gap-6 grow py-3 px-6 md:px-10 md:rounded-t-lg md:border-l bg-background">
+                <main className="flex flex-col gap-6 grow py-3 px-6 md:px-10 bg-background">
                     <LinksLayoutHeader/>
                     {children}
                 </main>

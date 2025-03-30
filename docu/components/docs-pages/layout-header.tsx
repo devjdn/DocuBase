@@ -11,7 +11,7 @@ export default function LinksLayoutHeader() {
 
     return(
         <header className="flex flex-row items-center gap-2 mb-4 justify-between">
-            <div className="p-1 rounded-xl bg-secondary border border-border flex flex-row items-center justify-center gap-2">
+            <div className="flex flex-row items-center justify-center gap-2">
                 {isMobile && (
                     <Button variant={"ghost"} justify={"center"} size={"icon"} onClick={() => toggleSidebar()}>
                         <Sidebar size={18} />

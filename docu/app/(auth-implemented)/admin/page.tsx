@@ -1,11 +1,12 @@
 import WindowBtn from "@/components/buttons/window-btn";
-import { Heading1, Heading2} from "@/components/typography/headings";
+import { Heading1, Heading2, Heading3} from "@/components/typography/headings";
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
 import StatCard from "@/components/admin/stat-card";
 import { Suspense } from "react";
 import { SubmissionsList } from "@/components/admin/review/submissions-list";
+import { currentUser, auth } from "@clerk/nextjs/server";
 
 const columnKeysMap: Record<string, string> = {
     name: "Name",
@@ -18,6 +19,7 @@ const columnKeysMap: Record<string, string> = {
 };
 
 export default async function AdminPage() {
+    const user = await currentUser();
 
     const isAdmin = await checkRole("admin");
     if(!isAdmin) {
@@ -40,7 +42,8 @@ export default async function AdminPage() {
         <>
 
         <header className="block w-full border-b border-b-border">
-            <Heading1 className="mt-2" text="Admin Dashboard"/>
+            <Heading1 text="Admin Dashboard"/>
+            <p>Hello, {user?.username}.</p>
         </header>
 
         <section className="flex flex-col gap-4">
