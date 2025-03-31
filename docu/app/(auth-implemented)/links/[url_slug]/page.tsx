@@ -7,11 +7,29 @@ import { createClient } from "@/utils/supabase/server";
 import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
+export const revalidate = 60;
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+    const { data: links, error } = await supabaseClient
+        .from("links")
+        .select("name, url_slug, url, categories(name)")
+        .order("category_id", {ascending: true})
+        .overrideTypes<Array<{categories: {name: string}}>>();
+
+    if (!links) return;
+
+    return links.map((link) => ({
+        category_name: link.categories.name,
+        link_slug: link.url_slug,
+    }));
+}
+
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
         const { url_slug } = await params;
 
-        const supabase = await createClient();
         const { data, error } = await supabaseClient
             .from("links")
             .select("id, name, url, description, created_at, is_deprecated, categories(name)")
