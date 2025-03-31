@@ -18,9 +18,9 @@ export async function generateStaticParams() {
         .order("category_id", {ascending: true})
         .overrideTypes<Array<{categories: {name: string}}>>();
 
-    if (!links) return;
+    if (!links) return [];
 
-    return links.map((link) => ({
+    return links?.map((link) => ({
         category_name: link.categories.name,
         link_slug: link.url_slug,
     }));
