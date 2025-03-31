@@ -16,11 +16,9 @@ import { SidebarLinkInfo } from "@/app/types/links";
 import Link from "next/link";
 import { MobileSidebarNavCategory } from "./mobile/nav-category";
 
-export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAdmin: boolean | null}){
+export default function SidebarWrapper({ isAdmin}:  {isAdmin: boolean | null}){
     const { isMobile, state, toggleSidebar, isOpen, isOpenMobile } = useSidebar();
-    const groupedLinks = React.useMemo(() => (
-        groupLinksByCategory(links)
-    ), [links]);
+    
 
     if (isMobile) {
         return(
@@ -45,11 +43,11 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
                     <SearchBar/>
                 </SidebarHeader>
 
-                <SidebarNav>
+                {/* <SidebarNav>
                     {Object.entries(groupedLinks).map(([category, links], index) => (
                         <MobileSidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>               
                     ))}
-                </SidebarNav>
+                </SidebarNav> */}
 
 
                 <SidebarFooter>
@@ -92,11 +90,11 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
                 <SearchBar/>
             </SidebarHeader>
 
-            <SidebarNav>
+            {/* <SidebarNav>
                 {Object.entries(groupedLinks).map(([category, links], index) => (
                     <SidebarNavCategory key={index} category={category} links={links} icon={categoryIcons[category]}/>               
                 ))}
-            </SidebarNav>
+            </SidebarNav> */}
 
 
             <SidebarFooter>
