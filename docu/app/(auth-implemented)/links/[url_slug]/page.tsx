@@ -3,28 +3,23 @@ import ControlBar from "@/components/docs-pages/control-bar";
 import DeprecationWarning from "@/components/docs-pages/deprecation-warning";
 import DocDetails from "@/components/docs-pages/doc-details";
 import DocHeader from "@/components/docs-pages/doc-header";
-import { createClient } from "@/utils/supabase/server";
 import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
-export const revalidate = 60;
+// export async function generateStaticParams() {
+//     const { data: links, error } = await supabaseClient
+//         .from("links")
+//         .select("name, url_slug, url, categories(name)")
+//         .order("category_id", {ascending: true})
+//         .overrideTypes<Array<{categories: {name: string}}>>();
 
-export const dynamicParams = true;
+//     if (!links) return [];
 
-export async function generateStaticParams() {
-    const { data: links, error } = await supabaseClient
-        .from("links")
-        .select("name, url_slug, url, categories(name)")
-        .order("category_id", {ascending: true})
-        .overrideTypes<Array<{categories: {name: string}}>>();
-
-    if (!links) return [];
-
-    return links?.map((link) => ({
-        category_name: link.categories.name,
-        link_slug: link.url_slug,
-    }));
-}
+//     return links?.map((link) => ({
+//         category_name: link.categories.name,
+//         link_slug: link.url_slug,
+//     }));
+// }
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
