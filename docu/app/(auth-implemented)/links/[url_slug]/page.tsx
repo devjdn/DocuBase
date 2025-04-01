@@ -6,19 +6,19 @@ import DocHeader from "@/components/docs-pages/doc-header";
 import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
-export async function generateStaticParams() {
-    const { data: links, error } = await supabaseClient
-        .from("links")
-        .select("name, url_slug, url, categories(name)")
-        .overrideTypes<Array<{categories: {name: string}}>>();
+// export async function generateStaticParams() {
+//     const { data: links, error } = await supabaseClient
+//         .from("links")
+//         .select("name, url_slug, url, categories(name)")
+//         .overrideTypes<Array<{categories: {name: string}}>>();
 
-    if (!links) return [];
+//     if (!links) return [];
 
-    return links?.map((link) => ({
-        category_name: link.categories.name,
-        link_slug: link.url_slug,
-    }));
-}
+//     return links?.map((link) => ({
+//         category_name: link.categories.name,
+//         link_slug: link.url_slug,
+//     }));
+// }
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
