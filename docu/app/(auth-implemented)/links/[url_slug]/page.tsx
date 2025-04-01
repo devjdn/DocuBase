@@ -6,19 +6,22 @@ import DocHeader from "@/components/docs-pages/doc-header";
 import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
-// export async function generateStaticParams() {
-//     const { data: links, error } = await supabaseClient
-//         .from("links")
-//         .select("name, url_slug, url, categories(name)")
-//         .overrideTypes<Array<{categories: {name: string}}>>();
+export const revalidate = 60;
 
-//     if (!links) return [];
+export const dynamicParams = true;
 
-//     return links?.map((link) => ({
-//         category_name: link.categories.name,
-//         link_slug: link.url_slug,
-//     }));
-// }
+export async function generateStaticParams() {
+    const { data: links } = await supabaseClient
+        .from("links")
+        .select("url_slug")
+        .overrideTypes<Array<{categories: {name: string}}>>();
+
+    if (!links) return [];
+
+    return links?.map((link) => ({
+        url_slug: String(link.url_slug),
+    }));
+}
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
     try {
@@ -30,8 +33,6 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
             .eq("url_slug", url_slug)
             .single()
             .overrideTypes<SingleLink>();
-
-        console.log(data);
 
         if (error || !data) {
             console.error("Error fetching link data:", error, error.cause, error.message, error.stack);
