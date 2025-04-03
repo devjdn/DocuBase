@@ -1,8 +1,10 @@
+import PostHogClient from "@/app/posthog";
 import { SingleLink } from "@/app/types/links";
 import ControlBar from "@/components/docs-pages/control-bar";
 import DeprecationWarning from "@/components/docs-pages/deprecation-warning";
-import DocDetails from "@/components/docs-pages/doc-details";
-import DocHeader from "@/components/docs-pages/doc-header";
+import { Heading1 } from "@/components/typography/headings";
+import Timestamp from "@/components/typography/timestamp";
+import { Badge } from "@/components/ui/badge";
 import supabaseClient from "@/utils/supabaseClient";
 import { Suspense } from "react";
 
@@ -24,6 +26,8 @@ export async function generateStaticParams() {
 }
 
 export default async function LinkPage({ params }: { params: Promise<{ url_slug: string }> }) {
+    const posthog = PostHogClient();
+    
     try {
         const { url_slug } = await params;
 
@@ -41,10 +45,25 @@ export default async function LinkPage({ params }: { params: Promise<{ url_slug:
 
         return (
             <Suspense fallback="Loading...">
-                <section>
-                    <DocHeader category={data.categories.name} name={data.name} />
-                    <DocDetails url={data.url} description={data.description} created_at={data.created_at} is_deprecated={data.is_deprecated} />
+                <section className="max-w-prose">
+                    <header className="mb-4">
+                        <Badge
+                                variant={"outline"}
+                                className="mb-4"
+                        >
+                            <p>{data.categories.name}</p>
+                        </Badge>
+                        <Heading1 text={data.name}/>
+                    </header>   
+
+                    <div className="flex flex-col gap-2">
+                        <a href={data.url} target="_blank" className="mb-2 text-link-foreground hover:underline">{data.url}</a>
+                        <p className="text-muted-foreground max-w-prose mb-4">{data.description}</p>
+                        <Timestamp timestamp={data.created_at} />
+                    </div>
+
                     <ControlBar url={data.url} name={data.name} is_deprecated={data.is_deprecated}/>
+
                     {data.is_deprecated && (
                         <DeprecationWarning/>
                     )}

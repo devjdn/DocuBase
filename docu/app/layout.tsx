@@ -1,11 +1,11 @@
-import { Geist, Libre_Baskerville, PT_Serif, Playfair_Display } from 'next/font/google';
+import { Geist, Libre_Baskerville } from 'next/font/google';
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import HeaderWrapper from "@/components/header/header-wrapper";
 import { ClerkProvider } from "@clerk/nextjs";
 import { FontKey, FontProvider } from "@/providers/font-provider";
 import { cookies } from "next/headers";
 import localFont from "next/font/local";
+import { PostHogProvider } from "@/providers/posthog";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -59,7 +59,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <FontProvider initialFont={initialFont}>
         <html lang="en" className={fontClass} suppressHydrationWarning>
-          <body className="bg-sidebar overflow-x-hidden text-foreground tracking-normal">
+          <body className="bg-background overflow-x-hidden text-foreground tracking-normal">
             {/* <script
                 crossOrigin="anonymous"
                 src="//unpkg.com/react-scan/dist/auto.global.js"
@@ -70,10 +70,11 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-                {/* <HeaderWrapper/> */}
+              <PostHogProvider>
                 <main className="w-full">
                     {children}
                 </main>
+              </PostHogProvider>
             </ThemeProvider>
           </body>
         </html>

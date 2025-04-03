@@ -1,13 +1,14 @@
 "use client";
 
-import { SubmittedLinksArray } from "@/app/types/links";
+import Timestamp from "@/components/typography/timestamp";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 import * as React from "react";
 
 interface SubmissionsListProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    className?: string;
 }
 
 function SubmissionsList({submissions}: {
@@ -28,18 +29,30 @@ function SubmissionsList({submissions}: {
     return(
         <ul className="grid auto-rows-auto">
             {submissions && submissions.map((submission, submissionIndex) => (
-                <SubmissionsListItem key={submissionIndex} linkName={submission.name}>
-
-                    <SubmissionsListItemContent>
-                        <></>
-                    </SubmissionsListItemContent>
+                <SubmissionsListItem className="flex flex-col gap-2" key={submissionIndex} linkName={submission.name}>
+                    <div>
+                        <strong>Submission URL:</strong>
+                        <p>{submission.url}</p>
+                    </div>
+                    <div>
+                        <strong>Category:</strong>
+                        <p>{submission.categories.name}</p>
+                    </div>
+                    <div>
+                        <strong>Description:</strong>
+                        <p>{submission.description}</p>
+                    </div>
+                    <div>
+                        <strong>Created at:</strong>
+                        <Timestamp timestamp={submission.created_at} />
+                    </div>
                 </SubmissionsListItem>
             ))}
         </ul>
     );
 }
 
-function SubmissionsListItem({children, linkName, ...props}: SubmissionsListProps & {linkName: string}) {
+function SubmissionsListItem({children, className, linkName, ...props}: SubmissionsListProps & {linkName: string}) {
     const [isContentOpen, setIsContentOpen] = React.useState<boolean>(false);
     const state = isContentOpen ? "open" : "closed";
 
@@ -48,11 +61,16 @@ function SubmissionsListItem({children, linkName, ...props}: SubmissionsListProp
     }
 
     return(
-        <li className="border-b border-b-border group" {...props} data-state={state}>
-            <header className="flex justify-between gap-4 items-center py-4">
-                <p>{linkName}</p>
-
-                <Button variant={"ghost"} justify={"center"} size={"icon"} onClick={toggleContent}>
+        <li className={clsx(
+            ` group ${className}`,
+            {"bg-secondary rounded-lg": state === "open"},
+        )} 
+        {...props} 
+        data-state={state}
+        >
+            <header className="">
+                <Button variant={"ghost"} className="p-4 w-full flex flex-row justify-between items-center" onClick={toggleContent}>
+                    <p>{linkName}</p>
                     <ChevronRight className={
                         clsx(
                             "rotate-0 transition-transform",
@@ -61,15 +79,17 @@ function SubmissionsListItem({children, linkName, ...props}: SubmissionsListProp
                     } size={18} />
                 </Button>
             </header>
-            {children}
+            <SubmissionsListItemContent data-state={state} className={"px-4 border-t border-t-border overflow-hidden data-[state=open]:flex data-[state=closed]:hidden"}>
+                {children}
+            </SubmissionsListItemContent>
         </li>
     );
 }
 
-function SubmissionsListItemContent({children}: SubmissionsListProps) {
+function SubmissionsListItemContent({children, className, ...props}: SubmissionsListProps & {className?: string}) {
 
     return(
-        <div className="animate-accordion-in">
+        <div className={`${className}`} {...props}>
             {children}
         </div>
     );

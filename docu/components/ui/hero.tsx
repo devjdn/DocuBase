@@ -5,6 +5,7 @@ import DocsPreviewDark from "@/public/preview-docs-dark.png";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const { theme } = useTheme();
@@ -29,12 +30,13 @@ export default function Hero() {
           <p>Browse links</p>
         </Link>
       </div>
-      {/* <div className="mt-6 w-full p-[1px] max-w-[800 bg-linear-to-r from-transparent via-brand/80 to-transparent my-8" /> */}
-      {theme === "dark" ? (
-        <img src={DocsPreviewDark.src} alt="Docs Preview" className="w-full max-w-[800px] rounded-md border-2 border-brand/80 shadow-lg" />
-      ) : (
-        <img src={DocsPreviewLight.src} alt="Docs Preview" className="w-full max-w-[800px] rounded-md border-2 border-brand/80 shadow-lg" />
-      )}
+      <div className="relative">
+        {theme === "dark" ? (
+          <Image width={500} height={600} src={DocsPreviewDark.src} alt="Docs Preview" className="w-full max-w-[800px] rounded-md border-2 border-brand/80 shadow-lg" />
+        ) : (
+          <Image width={500} height={600} src={DocsPreviewLight.src} alt="Docs Preview" className="w-full max-w-[800px] rounded-md border-2 border-brand/80 shadow-lg" />
+        )}
+      </div>
     </div>
   );
 }

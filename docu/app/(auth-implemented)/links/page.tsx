@@ -1,6 +1,9 @@
 import { Heading1, Heading2 } from "@/components/typography/headings"
+import PostHogClient from '@/app/posthog';
 
 export default function DocumentationPage(){
+    const posthog = PostHogClient();
+
     return(
         <section className="flex flex-col gap-10 max-w-prose">
             <div className="py-2 px-3 rounded-lg bg-warning text-warning-foreground">

@@ -6,7 +6,8 @@ import { redirect } from "next/navigation";
 import StatCard from "@/components/admin/stat-card";
 import { Suspense } from "react";
 import { SubmissionsList } from "@/components/admin/review/submissions-list";
-import { currentUser, auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
+import PostHogClient from "@/app/posthog";
 
 const columnKeysMap: Record<string, string> = {
     name: "Name",
@@ -19,6 +20,7 @@ const columnKeysMap: Record<string, string> = {
 };
 
 export default async function AdminPage() {
+    const posthog = PostHogClient();
     const user = await currentUser();
 
     const isAdmin = await checkRole("admin");
@@ -34,7 +36,7 @@ export default async function AdminPage() {
             .order("created_at", { ascending: false })
             .overrideTypes<Array<{categories: {name: string}}>>();
 
-    console.log(submissions);
+    // console.log(submissions);
 
     const pendingSubmissions = submissions?.filter((submissions) => submissions.approval_status === "Pending");
 
@@ -42,8 +44,7 @@ export default async function AdminPage() {
         <>
 
         <header className="block w-full border-b border-b-border">
-            <Heading1 text="Admin Dashboard"/>
-            <p>Hello, {user?.username}.</p>
+            <Heading1 text={`${user?.username}'s Admin Dashboard`}/>
         </header>
 
         <section className="flex flex-col gap-4">

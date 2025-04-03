@@ -19,9 +19,12 @@ export function SidebarNavCategory({category, icon, links}: CategoryProps) {
                 size={isOpen ? "sm" : "icon"}
                 onClick={
                     () => {
-                        setCategoryOpen((prev) => !prev);
+                        if(isOpen) {
+                            setCategoryOpen((prev) => !prev);
+                        }
                         if (!isOpen) {
                             setIsOpen(true);
+                            setCategoryOpen(true);
                         }
                     } 
                 }

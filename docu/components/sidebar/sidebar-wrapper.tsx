@@ -5,7 +5,7 @@ import { useSidebar } from "@/providers/sidebar-provider";
 import clsx from "clsx";
 import SidebarHeader from "./sidebar-header";
 import SidebarFooter from "./sidebar-footer";
-import { PanelLeft, LayoutDashboard } from "lucide-react";
+import { PanelLeft, LayoutDashboard, FileText } from "lucide-react";
 import LinkSubmissionPortal from "../link-submission/submission-portal";
 import SearchBar from "../search/search-bar";
 import { Button } from "../ui/button";
@@ -75,13 +75,20 @@ export default function SidebarWrapper({links, isAdmin}: SidebarLinkInfo & {isAd
     
     return(
         <div className={clsx(
-            "hidden md:flex flex-col grow styled-scrollbar max-h-screen h-full border-r border-r-border",
+            "hidden md:flex bg-sidebar flex-col grow styled-scrollbar max-h-screen h-full border-r border-r-border",
             {"w-auto": state === "closed"},
             {"w-64": state === "expanded"}
             )}
             data-sidebar-state={state}
         >
             <SidebarHeader>
+                <Button asChild variant={"ghost"} size={isOpen ? "sm" : "icon"} justify={isOpen ? null : "center"} className="flex flex-row gap-1">
+                    <Link className="flex flex-row gap-1 items-center" href={'/links'}>
+                        <FileText className="stroke-brand" size={18}/>
+                        {isOpen && <span className="text-lg font-medium text-foreground">DocuBase</span>}
+                    </Link>
+                </Button>
+
                 <Button 
                     onClick={toggleSidebar}
                     size={"icon"}
