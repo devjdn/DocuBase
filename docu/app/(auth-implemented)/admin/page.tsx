@@ -1,5 +1,9 @@
-import WindowBtn from "@/components/buttons/window-btn";
-import { Heading1, Heading2, Heading3} from "@/components/typography/headings";
+import WindowBtn from "@/components/ui/window-btn";
+import {
+	Heading1,
+	Heading2,
+	Heading3,
+} from "@/components/ui/typography/headings";
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { checkRole } from "@/utils/roles";
 import { redirect } from "next/navigation";
@@ -10,56 +14,63 @@ import { currentUser } from "@clerk/nextjs/server";
 import PostHogClient from "@/app/posthog";
 
 const columnKeysMap: Record<string, string> = {
-    name: "Name",
-    url: "URL",
-    description: "Description",
-    approval_status: "Approval status",
-    created_at: "Submitted at",
-    user_id: "User ID",
-    categories: "Category",
+	name: "Name",
+	url: "URL",
+	description: "Description",
+	approval_status: "Approval status",
+	created_at: "Submitted at",
+	user_id: "User ID",
+	categories: "Category",
 };
 
 export default async function AdminPage() {
-    const posthog = PostHogClient();
-    const user = await currentUser();
+	const posthog = PostHogClient();
+	const user = await currentUser();
 
-    const isAdmin = await checkRole("admin");
-    if(!isAdmin) {
-        redirect("/links");
-    }
+	const isAdmin = await checkRole("admin");
+	if (!isAdmin) {
+		redirect("/links");
+	}
 
-    // Remember that I have to await this function as it returns a promise, not an actual result
-    const client = await createClerkSupabaseClientSsr();
+	// Remember that I have to await this function as it returns a promise, not an actual result
+	const client = await createClerkSupabaseClientSsr();
 
-    const { data: submissions, error } = await client.from("submissions")
-            .select("name, url, url_slug, description, approval_status, created_at, user_id, categories (name)")
-            .order("created_at", { ascending: false })
-            .overrideTypes<Array<{categories: {name: string}}>>();
+	const { data: submissions, error } = await client
+		.from("submissions")
+		.select(
+			"name, url, url_slug, description, approval_status, created_at, user_id, categories (name)",
+		)
+		.order("created_at", { ascending: false })
+		.overrideTypes<Array<{ categories: { name: string } }>>();
 
-    // console.log(submissions);
+	// console.log(submissions);
 
-    const pendingSubmissions = submissions?.filter((submissions) => submissions.approval_status === "Pending");
+	const pendingSubmissions = submissions?.filter(
+		(submissions) => submissions.approval_status === "Pending",
+	);
 
-    return(
-        <>
+	return (
+		<>
+			<header className="block w-full border-b border-b-border">
+				<Heading1 text={`${user?.username}'s Admin Dashboard`} />
+			</header>
 
-        <header className="block w-full border-b border-b-border">
-            <Heading1 text={`${user?.username}'s Admin Dashboard`}/>
-        </header>
+			<section className="flex flex-col gap-4">
+				<Heading2 text={"Submission Review"} />
 
-        <section className="flex flex-col gap-4">
-            <Heading2 text={"Submission Review"}/>
+				<Suspense fallback="Loading pending submissions">
+					<div className="flex flex-row gap-4">
+						<StatCard
+							heading={"Pending submissions"}
+							value={(pendingSubmissions?.length ?? 0).toString()}
+						/>
+					</div>
+				</Suspense>
 
-            <Suspense fallback="Loading pending submissions">
-                <div className="flex flex-row gap-4">
-                    <StatCard heading={"Pending submissions"} value={(pendingSubmissions?.length ?? 0).toString()}/>
-                </div>
-            </Suspense>
-
-            <Suspense fallback="Loading submissions">
-                <SubmissionsList submissions={pendingSubmissions}/>
-            </Suspense>
-        </section>
-        </>
-    );
+				<Suspense fallback="Loading submissions">
+					<SubmissionsList submissions={pendingSubmissions} />
+				</Suspense>
+			</section>
+		</>
+	);
 }
