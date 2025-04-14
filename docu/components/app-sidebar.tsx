@@ -16,13 +16,12 @@ import {
 	Home,
 	LayoutDashboard,
 	Library,
-	LucideIcon,
 	Send,
 	Vault,
 } from "lucide-react";
 import Link from "next/link";
-import { User } from "@clerk/nextjs/dist/types/server";
 import { NavUser } from "./ui/user/nav-user";
+import { checkRole } from "@/utils/roles";
 
 type VaultItem = {
 	name: string;
@@ -36,7 +35,7 @@ const vaultItems: VaultItem[] = [
 	{ name: "Collections", icon: <Library />, href: "/vault/collections" },
 ];
 
-export function AppSidebar({
+export async function AppSidebar({
 	user,
 }: {
 	user: {
@@ -46,6 +45,8 @@ export function AppSidebar({
 		username: string;
 	};
 }) {
+	const isAdmin = await checkRole("admin");
+
 	return (
 		<Sidebar collapsible="offcanvas">
 			<SidebarHeader>
@@ -80,13 +81,6 @@ export function AppSidebar({
 					</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							<SidebarMenuButton asChild>
-								<Link href="/admin">
-									<LayoutDashboard />
-									<span>Admin Dashboard</span>
-								</Link>
-							</SidebarMenuButton>
-
 							<SidebarMenuButton>
 								<Send />
 								<span>Feature Request</span>
@@ -96,7 +90,7 @@ export function AppSidebar({
 				</SidebarGroup>
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={user} />
+				<NavUser user={user} isAdmin={isAdmin} />
 			</SidebarFooter>
 		</Sidebar>
 	);

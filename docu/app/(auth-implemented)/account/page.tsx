@@ -15,9 +15,9 @@ export default async function AccountPage() {
 
 	return (
 		<header className="flex flex-row items-end gap-4">
-			<Avatar className="h-38 w-38 rounded-2xl">
+			<Avatar className="h-38 w-38 rounded-xl">
 				<AvatarImage src={user.imageUrl} />
-				<AvatarFallback className="rounded-2xl">
+				<AvatarFallback className="rounded-xl">
 					{user.username}
 				</AvatarFallback>
 			</Avatar>

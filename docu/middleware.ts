@@ -4,31 +4,33 @@ import { NextResponse } from "next/server";
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
+	const url = req.nextUrl;
+	const visited = req.cookies.get("hasVisited");
+
 	// This is protecting all routes that start with '/admin'.
 	if (
 		isAdminRoute(req) &&
 		(await auth()).sessionClaims?.metadata?.role !== "admin"
 	) {
-		const url = new URL("/", req.url);
-		return NextResponse.redirect(url);
-	}
-
-	const visited = req.cookies.get("hasVisited");
-
-	if (req.nextUrl.pathname === "/" && visited?.value === "true") {
 		return NextResponse.redirect(new URL("/vault", req.url));
 	}
 
-	if (!visited) {
-		const response = NextResponse.next();
-		response.cookies.set("hasVisited", "true", {
-			path: "/",
-			maxAge: 60 * 60 * 24 * 365, // 1 year
-			sameSite: "strict",
-			secure: process.env.NODE_ENV === "production",
-		});
+	if (url.pathname === "/") {
+		if (visited?.value === "true") {
+			return NextResponse.redirect(new URL("/vault", req.url));
+		} else {
+			const response = NextResponse.redirect(
+				new URL("/landing", req.url),
+			);
+			response.cookies.set("hasVisited", "true", {
+				path: "/",
+				maxAge: 60 * 60 * 24 * 365, // 1 year
+				sameSite: "strict",
+				secure: process.env.NODE_ENV === "production",
+			});
 
-		return response;
+			return response;
+		}
 	}
 
 	return NextResponse.next();

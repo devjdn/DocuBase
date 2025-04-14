@@ -20,12 +20,13 @@ import {
 } from "@/components/ui/sidebar";
 
 import * as React from "react";
-import { ChevronsUpDown, LogOut, User } from "lucide-react";
+import { ChevronsUpDown, Crown, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { useClerk } from "@clerk/nextjs";
 
 export function NavUser({
 	user,
+	isAdmin,
 }: {
 	user: {
 		firstName: string;
@@ -33,6 +34,7 @@ export function NavUser({
 		email: string;
 		username: string;
 	};
+	isAdmin: boolean;
 }) {
 	const { isMobile } = useSidebar();
 	const { signOut } = useClerk();
@@ -108,6 +110,16 @@ export function NavUser({
 									</span>
 								</Link>
 							</DropdownMenuItem>
+							{isAdmin && (
+								<DropdownMenuItem asChild>
+									<Link href="/admin">
+										<Crown className="size-4" />
+										<span className="font-regular">
+											Admin dashboard
+										</span>
+									</Link>
+								</DropdownMenuItem>
+							)}
 						</DropdownMenuGroup>
 
 						<DropdownMenuSeparator />
