@@ -13,8 +13,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "DocuBase | Streamlining access to developer documentation.",
-  description: "DocuBase provides a simple and intuitive way to access developer documentation.",
+  title: "PageVault // A better way to save and organize your favourite websites",
+  description: "PageVault is a simple and intuitive way to save and organize your favourite websites.",
 };
 
 const geist = Geist({
