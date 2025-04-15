@@ -14,6 +14,8 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Switch } from "../switch";
+import { submitLink } from "@/app/actions";
 
 const formSchema = z.object({
 	name: z.string().min(1),
@@ -32,7 +34,11 @@ export function PagesForm() {
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		// Create the form submission with supabase, or a potentially new solution
+		submitLink({
+			name: values.name,
+			url: values.url,
+			favourite: values.favourite || false,
+		});
 		console.log(values);
 	}
 
@@ -48,10 +54,6 @@ export function PagesForm() {
 							<FormControl>
 								<Input placeholder="PageVault" {...field} />
 							</FormControl>
-							<FormDescription>
-								This is the name of the page you&apos;re adding
-								to your vault.
-							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -68,13 +70,30 @@ export function PagesForm() {
 									{...field}
 								/>
 							</FormControl>
-							<FormDescription>
-								This is the full HTTPS URL of that page.
-							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
+				<FormField
+					control={form.control}
+					name="favourite"
+					render={({ field }) => (
+						<FormItem className="flex flex-row justify-between items-center gap-4 p-4 rounded-lg border border-border">
+							<div className="space-y-1">
+								<FormLabel>Favourite</FormLabel>
+								<FormDescription>
+									Mark this page as a favourite.
+								</FormDescription>
+							</div>
+							<FormControl>
+								<Switch
+									checked={field.value}
+									onCheckedChange={field.onChange}
+								/>
+							</FormControl>
+						</FormItem>
+					)}
+				></FormField>
 				<Button type="submit">Add Page</Button>
 			</form>
 		</Form>

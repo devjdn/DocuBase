@@ -29,7 +29,7 @@ export default async function AdminPage() {
 
 	const isAdmin = await checkRole("admin");
 	if (!isAdmin) {
-		redirect("/links");
+		redirect("/vault");
 	}
 
 	// Remember that I have to await this function as it returns a promise, not an actual result
