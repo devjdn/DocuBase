@@ -10,18 +10,11 @@ import {
 	SidebarMenuButton,
 	SidebarSeparator,
 } from "@/components/ui/sidebar";
-import {
-	Bookmark,
-	Folder,
-	Home,
-	LayoutDashboard,
-	Library,
-	Send,
-	Vault,
-} from "lucide-react";
+import { Bookmark, Home, Library, Send, Vault } from "lucide-react";
 import Link from "next/link";
 import { NavUser } from "./ui/user/nav-user";
 import { checkRole } from "@/utils/roles";
+import SidebarLink from "./ui/active-sidebar-link";
 
 type VaultItem = {
 	name: string;
@@ -65,12 +58,12 @@ export async function AppSidebar({
 					<SidebarGroupContent>
 						<SidebarMenu>
 							{vaultItems.map((item, i) => (
-								<SidebarMenuButton key={i} asChild>
+								<SidebarLink key={i} href={item.href}>
 									<Link href={item.href}>
 										{item.icon}
 										<span>{item.name}</span>
 									</Link>
-								</SidebarMenuButton>
+								</SidebarLink>
 							))}
 						</SidebarMenu>
 					</SidebarGroupContent>

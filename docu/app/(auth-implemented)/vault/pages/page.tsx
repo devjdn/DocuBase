@@ -1,14 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogDescription,
-} from "@/components/ui/dialog";
-import { PagesForm } from "@/components/ui/forms/pages";
-import { PlusCircle, Star } from "lucide-react";
+import { NewPageForm } from "@/components/ui/forms/new-page";
+import { Star } from "lucide-react";
 import { PageType } from "@/app/types/vault";
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { auth } from "@clerk/nextjs/server";
@@ -28,9 +20,12 @@ export default async function PagesPage() {
 
 	console.log(pages);
 
+	const favouritePages = pages?.filter((page) => page.favourite);
+	const otherPages = pages?.filter((page) => !page.favourite);
+
 	return (
 		<>
-			<header className="flex justify-between items-center gap-4">
+			<header className="flex justify-between items-center gap-4 mb-8">
 				<div>
 					<h1 className="text-3xl font-regular">Pages</h1>
 				</div>
@@ -43,50 +38,58 @@ export default async function PagesPage() {
 					 * Filter pages (by collection, by tags, by date) [dropdown]
 					 * Change view (grid, list)
 					 */}
-					<Dialog>
-						<DialogTrigger asChild>
-							<Button variant={"default"}>
-								<PlusCircle />
-								<span>Add new</span>
-							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>Add new page</DialogTitle>
-								<DialogDescription>
-									Add a new page to your vault. This allows
-									you to save websites that you visit
-									frequently, all in one place.
-								</DialogDescription>
-							</DialogHeader>
-
-							{/**
-							 * This is the form that's used to add a new page to the vault.
-							 */}
-							<PagesForm />
-						</DialogContent>
-					</Dialog>
+					<NewPageForm />
 				</nav>
 			</header>
 
+			{favouritePages && favouritePages.length > 0 && (
+				<section className="flex flex-col gap-4 border-b border-border pb-4">
+					<h2 className="text-lg font-medium">Favourites</h2>
+					<ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
+						{favouritePages?.map((page, i) => (
+							<li key={i}>
+								<Link href={page.url} target="_blank">
+									<Card>
+										<CardHeader>
+											<div className="flex flex-row justify-between">
+												<CardTitle>
+													{page.name}
+												</CardTitle>
+												{page.favourite && (
+													<Badge
+														variant={"favourite"}
+													>
+														<Star className="size-4 fill-brand stroke-brand" />
+													</Badge>
+												)}
+											</div>
+										</CardHeader>
+										<CardContent className="truncate">
+											<p className="truncate text-sm text-muted-foreground">
+												{page.url}
+											</p>
+										</CardContent>
+									</Card>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
 			<section className="flex flex-col gap-4">
-				<ul className="grid gap-4">
-					{pages?.map((page, i) => (
+				<ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
+					{otherPages?.map((page, i) => (
 						<li key={i}>
 							<Link href={page.url} target="_blank">
 								<Card>
 									<CardHeader>
-										<div className="flex flex-row justify-between">
-											<CardTitle>{page.name}</CardTitle>
-											{page.favourite && (
-												<Badge variant={"outline"}>
-													<Star className="size-4 fill-brand stroke-brand" />
-												</Badge>
-											)}
-										</div>
+										<CardTitle>{page.name}</CardTitle>
 									</CardHeader>
-									<CardContent>
-										<p>{page.url}</p>
+									<CardContent className="truncate">
+										<p className="truncate text-sm text-muted-foreground">
+											{page.url}
+										</p>
 									</CardContent>
 								</Card>
 							</Link>
