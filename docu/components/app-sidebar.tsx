@@ -10,7 +10,14 @@ import {
 	SidebarMenuButton,
 	SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { Bookmark, Home, Library, Send, Vault } from "lucide-react";
+import {
+	Bookmark,
+	FolderClock,
+	Home,
+	Library,
+	Send,
+	Vault,
+} from "lucide-react";
 import Link from "next/link";
 import { NavUser } from "./ui/user/nav-user";
 import { checkRole } from "@/utils/roles";
@@ -26,6 +33,7 @@ const vaultItems: VaultItem[] = [
 	{ name: "Home", icon: <Home />, href: "/vault" },
 	{ name: "Pages", icon: <Bookmark />, href: "/vault/pages" },
 	{ name: "Collections", icon: <Library />, href: "/vault/collections" },
+	{ name: "QuickBox", icon: <FolderClock />, href: "/vault/quickbox" },
 ];
 
 export async function AppSidebar({

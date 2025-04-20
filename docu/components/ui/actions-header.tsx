@@ -18,7 +18,7 @@ export default function ActionsHeader() {
 			<div className="p-1 flex flex-row items-center justify-center gap-2">
 				<SettingsPopover />
 
-				<Button asChild size="icon" variant="ghost">
+				<Button className="size-7" asChild size="icon" variant="ghost">
 					<a
 						target="_blank"
 						href="https://github.com/devjdn/DocuBase"

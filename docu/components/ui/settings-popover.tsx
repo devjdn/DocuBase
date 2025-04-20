@@ -11,7 +11,7 @@ export default function SettingsPopover() {
 	return (
 		<Popover.Root>
 			<Popover.Trigger asChild>
-				<Button variant="ghost" size={"icon"}>
+				<Button className="size-7" variant="ghost" size={"icon"}>
 					<Settings2 />
 				</Button>
 			</Popover.Trigger>
