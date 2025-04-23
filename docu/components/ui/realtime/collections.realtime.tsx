@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { PageType } from "@/app/types/vault";
+import { CollectionType } from "@/app/types/vault";
 import { useAuth } from "@clerk/nextjs";
 import supabase from "@/utils/supabaseClient";
 import { RealtimeChannel } from "@supabase/supabase-js";
-import Link from "next/link";
-import PagesCard from "../cards/pages-card";
+import CollectionsCard from "../cards/collections-card";
+
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -15,17 +15,22 @@ import {
 import { Button } from "../button";
 import { ChevronsUpDown } from "lucide-react";
 
-export default function PagesRealtime({
-	serverPages,
+export default function CollectionsRealtime({
+	serverCollections,
 }: {
-	serverPages: PageType[];
+	serverCollections: CollectionType[];
 }) {
 	const { getToken, userId } = useAuth();
-	const [pages, setPages] = React.useState<PageType[]>(serverPages);
+	const [collections, setCollections] =
+		React.useState<CollectionType[]>(serverCollections);
 	const [open, setOpen] = React.useState<boolean>(true);
 
-	const favouritePages = pages.filter((page) => page.favourite);
-	const otherPages = pages.filter((page) => !page.favourite);
+	const favouriteCollections = collections.filter(
+		(collection) => collection.favourite,
+	);
+	const otherCollections = collections.filter(
+		(collection) => !collection.favourite,
+	);
 
 	React.useEffect(() => {
 		let channel: RealtimeChannel;
@@ -44,7 +49,7 @@ export default function PagesRealtime({
 					}
 				}
 
-				channel = supabase.channel("pages");
+				channel = supabase.channel("collections");
 
 				// console.log("Setting up channel:", channel);
 
@@ -69,9 +74,9 @@ export default function PagesRealtime({
 						},
 						(payload) => {
 							// console.log("INSERT received:", payload);
-							setPages((prevPages) => [
-								...prevPages,
-								payload.new as PageType,
+							setCollections((prevCollections) => [
+								...prevCollections,
+								payload.new as CollectionType,
 							]);
 						},
 					)
@@ -84,11 +89,11 @@ export default function PagesRealtime({
 						},
 						(payload) => {
 							// console.log("UPDATE received:", payload);
-							setPages((prevPages) =>
-								prevPages.map((page) =>
-									page.id === payload.new.id
-										? (payload.new as PageType)
-										: page,
+							setCollections((prevCollections) =>
+								prevCollections.map((collection) =>
+									collection.id === payload.new.id
+										? (payload.new as CollectionType)
+										: collection,
 								),
 							);
 						},
@@ -98,13 +103,14 @@ export default function PagesRealtime({
 						{
 							event: "DELETE",
 							schema: "public",
-							table: "pages",
+							table: "Collections",
 						},
 						(payload) => {
 							// console.log("DELETE received:", payload);
-							setPages((prevPages) =>
-								prevPages.filter(
-									(page) => page.id !== payload.old.id,
+							setCollections((prevCollections) =>
+								prevCollections.filter(
+									(collection) =>
+										collection.id !== payload.old.id,
 								),
 							);
 						},
@@ -140,7 +146,7 @@ export default function PagesRealtime({
 
 	return (
 		<main>
-			{favouritePages && favouritePages.length > 0 && (
+			{favouriteCollections && favouriteCollections.length > 0 && (
 				<Collapsible
 					open={open}
 					onOpenChange={() => setOpen((prev) => !prev)}
@@ -154,11 +160,9 @@ export default function PagesRealtime({
 					</CollapsibleTrigger>
 					<CollapsibleContent className="mt-4 border-b border-border pb-4">
 						<ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
-							{favouritePages?.map((page, i) => (
+							{favouriteCollections?.map((collection, i) => (
 								<li key={i}>
-									<Link href={page.url} target="_blank">
-										<PagesCard {...page} />
-									</Link>
+									<CollectionsCard {...collection} />
 								</li>
 							))}
 						</ul>
@@ -168,11 +172,9 @@ export default function PagesRealtime({
 
 			<section className="flex flex-col gap-4">
 				<ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
-					{otherPages?.map((page, i) => (
+					{otherCollections?.map((collection, i) => (
 						<li key={i}>
-							<Link href={page.url} target="_blank">
-								<PagesCard {...page} />
-							</Link>
+							<CollectionsCard {...collection} />
 						</li>
 					))}
 				</ul>

@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "../switch";
-import { submitPage } from "@/app/actions";
+import { submitCollection } from "@/app/actions";
 import { toast } from "sonner";
 import {
 	Dialog,
@@ -30,33 +30,33 @@ import * as React from "react";
 
 const formSchema = z.object({
 	name: z.string().min(1),
-	url: z.string().min(1).url(),
+	description: z.string().min(1),
 	favourite: z.boolean().optional(),
 });
 
-export function NewPageForm() {
+export function NewCollectionForm() {
 	const [open, setOpen] = React.useState(false);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: "",
-			url: "",
+			description: "",
 			favourite: false,
 		},
 	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
-			submitPage({
+			submitCollection({
 				name: values.name,
-				url: values.url,
+				description: values.description,
 				favourite: values.favourite || false,
 			});
 
-			toast.success(`Page added to vault`, {
+			toast.success(`Collection added to vault`, {
 				description:
-					"Your page has been successfully added to the vault.",
+					"Your collection has been successfully added to the vault.",
 				duration: 6000,
 			});
 
@@ -64,7 +64,7 @@ export function NewPageForm() {
 			setOpen(false);
 		} catch (error) {
 			toast.error(
-				"An error occurred while adding the page to the vault. Please try again.",
+				"An error occurred while adding the collection to the vault. Please try again.",
 			);
 		}
 	}
@@ -79,15 +79,16 @@ export function NewPageForm() {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Add new page</DialogTitle>
+					<DialogTitle>Add new collection</DialogTitle>
 					<DialogDescription>
-						Add a new page to your vault. This allows you to save
-						websites that you visit frequently, all in one place.
+						Add a new collection to your vault. Collections serve as
+						a way to group websites that relate to each other in
+						some way.
 					</DialogDescription>
 				</DialogHeader>
 
 				{/**
-				 * This is the form that's used to add a new page to the vault.
+				 * This is the form that's used to add a new collection to the vault.
 				 */}
 				<Form {...form}>
 					<form
@@ -102,7 +103,7 @@ export function NewPageForm() {
 									<FormLabel>Name</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="PageVault"
+											placeholder="Favourite YouTubers"
 											{...field}
 										/>
 									</FormControl>
@@ -112,13 +113,13 @@ export function NewPageForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="url"
+							name="description"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>URL</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="https://pagevault.app"
+											placeholder="A collection of links to my favourite YouTube creators"
 											{...field}
 										/>
 									</FormControl>
@@ -134,7 +135,7 @@ export function NewPageForm() {
 									<div className="space-y-1">
 										<FormLabel>Favourite</FormLabel>
 										<FormDescription>
-											Mark this page as a favourite.
+											Mark this collection as a favourite.
 										</FormDescription>
 									</div>
 									<FormControl>
@@ -146,7 +147,7 @@ export function NewPageForm() {
 								</FormItem>
 							)}
 						></FormField>
-						<Button type="submit">Add Page</Button>
+						<Button type="submit">Add collection</Button>
 					</form>
 				</Form>
 			</DialogContent>
