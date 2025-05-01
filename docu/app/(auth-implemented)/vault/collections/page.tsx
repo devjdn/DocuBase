@@ -1,6 +1,6 @@
 import { CollectionType } from "@/app/types/vault";
 import { NewCollectionForm } from "@/components/ui/forms/new-collection";
-import CollectionsRealtime from "@/components/ui/realtime/collections.realtime";
+import CollectionsRealtime from "@/components/ui/realtime/collections-realtime";
 import { createClerkSupabaseClientSsr } from "@/utils/clerkSupabase";
 import { auth } from "@clerk/nextjs/server";
 

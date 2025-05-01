@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../card";
 import { Badge } from "../badge";
 import { CollectionType } from "@/app/types/vault";
-import PagesDropdown from "./pages-dropdown";
+import CollectionsDropdown from "../dropdowns/collections-dropdown";
 
 export default function CollectionsCard(collection: CollectionType) {
 	return (
@@ -18,7 +18,7 @@ export default function CollectionsCard(collection: CollectionType) {
 								<Star className="size-4 fill-brand stroke-brand" />
 							</Badge>
 						)}
-						<PagesDropdown
+						<CollectionsDropdown
 							favourite={collection.favourite}
 							pageId={collection.id}
 						/>

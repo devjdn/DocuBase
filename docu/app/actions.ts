@@ -30,7 +30,7 @@ export async function submitPage(
 	}
 }
 
-export async function toggleFavourite(favourite: boolean, pageId: string) {
+export async function favouritePage(favourite: boolean, pageId: string) {
 	const client = await createClerkSupabaseClientSsr();
 
 	try {
@@ -83,5 +83,38 @@ export async function submitCollection(
 		}
 	} catch (error: any) {
 		console.error("Error inserting data:", error);
+	}
+}
+
+export async function favouriteCollection(
+	favourite: boolean,
+	collectionId: string,
+) {
+	const client = await createClerkSupabaseClientSsr();
+
+	try {
+		const { data, error } = await client
+			.from("collections")
+			.update({
+				favourite: !favourite,
+			})
+			.eq("id", collectionId);
+
+		console.log("Success:", data, error);
+	} catch (error: any) {
+		console.error("Error updating data:", error);
+	}
+}
+
+export async function deleteCollection(collectionId: string) {
+	const client = await createClerkSupabaseClientSsr();
+
+	try {
+		const { data, error } = await client
+			.from("submissions")
+			.delete()
+			.eq("id", collectionId);
+	} catch (error: any) {
+		console.error("Error deleting data:", error);
 	}
 }

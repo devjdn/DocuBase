@@ -8,10 +8,10 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "../dropdown-menu";
-import { deletePage, toggleFavourite } from "@/app/actions";
+import { deleteCollection, favouriteCollection } from "@/app/actions";
 import { Button } from "../button";
 
-export default function PagesDropdown({
+export default function CollectionsDropdown({
 	favourite,
 	pageId,
 }: {
@@ -27,11 +27,11 @@ export default function PagesDropdown({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent side="bottom" align="end">
 				<DropdownMenuItem
-					onClick={() => toggleFavourite(favourite, pageId)}
+					onClick={() => favouriteCollection(favourite, pageId)}
 				>
 					{favourite ? (
 						<>
-							<Star className="size-4 fill-primary-foreground" />
+							<Star className="size-4 fill-brand stroke-brand" />
 							Unfavourite
 						</>
 					) : (
@@ -49,7 +49,7 @@ export default function PagesDropdown({
 					<Pen className="size-4" />
 					Edit page
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => deletePage(pageId)}>
+				<DropdownMenuItem onClick={() => deleteCollection(pageId)}>
 					<Trash className="size-4" />
 					Remove page
 				</DropdownMenuItem>

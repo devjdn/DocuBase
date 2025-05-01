@@ -62,14 +62,15 @@ export default function CollectionsRealtime({
 
 				// Listen for specific events
 				channel
-					// .on("broadcast", { event: "*" }, (payload) => {
-					// 	console.log("Broadcast received:", payload);
-					// })
+					.on("broadcast", { event: "*" }, (payload) => {
+						console.log("Broadcast received:", payload);
+					})
 					.on(
 						"postgres_changes",
 						{
 							event: "INSERT",
 							schema: "public",
+							table: "collections",
 							filter: `user_id=eq.${userId}`,
 						},
 						(payload) => {
@@ -85,6 +86,7 @@ export default function CollectionsRealtime({
 						{
 							event: "UPDATE",
 							schema: "public",
+							table: "collections",
 							filter: `user_id=eq.${userId}`,
 						},
 						(payload) => {
@@ -103,7 +105,7 @@ export default function CollectionsRealtime({
 						{
 							event: "DELETE",
 							schema: "public",
-							table: "Collections",
+							table: "collections",
 						},
 						(payload) => {
 							// console.log("DELETE received:", payload);

@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../card";
 import { Badge } from "../badge";
 import { PageType } from "@/app/types/vault";
-import PagesDropdown from "./pages-dropdown";
+import PagesDropdown from "../dropdowns/pages-dropdown";
 
 export default function PagesCard(page: PageType) {
 	return (

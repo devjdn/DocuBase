@@ -6,7 +6,7 @@ import {
 	openDyslexic,
 	useFont,
 } from "@/providers/font-provider";
-import { Button } from "../ui/button";
+import { Button } from "./button";
 import { useEffect, useState } from "react";
 
 export default function FontBtn() {
